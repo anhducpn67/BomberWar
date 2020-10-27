@@ -1,4 +1,4 @@
-package uet.oop.bomberman;
+package entities;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -7,89 +7,83 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import uet.oop.bomberman.entities.Bomber;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Grass;
-import uet.oop.bomberman.entities.Wall;
-import uet.oop.bomberman.graphics.Sprite;
+import graphics.Sprite;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class BombermanGame extends Application {
     
-    public static final int WIDTH = 20;
-    public static final int HEIGHT = 15;
+    public static int WIDTH;
+    public static int HEIGHT;
+    public static int time;
     public static ArrayList<String> input = new ArrayList<>();
+    public static List<Entity> entities = new ArrayList<>();
+    public static List<Entity> stillObjects = new ArrayList<>();
 
     private GraphicsContext gc;
     private Canvas canvas;
-    private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
 
     @Override
-    public void start(Stage stage) {
-        // Tao Canvas
+    public void start(Stage stage) throws IOException {
+        createMap();
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
-
-        // Tao root container
         Group root = new Group();
         root.getChildren().add(canvas);
-
-        // Tao scene
         Scene scene = new Scene(root);
-
-        // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-
         scene.setOnKeyPressed(
                 e -> {
                     String code = e.getCode().toString();
                     if ( !input.contains(code) )
                         input.add( code );
                 });
-
         scene.setOnKeyReleased(
                 e -> {
                     String code = e.getCode().toString();
                     input.remove( code );
                 });
 
-        new AnimationTimer()
-        {
+        Entity bomberman = new Bomber(1, 1, 0, 0, Sprite.player_right);
+        entities.add(bomberman);
+        final long startNanoTime = System.nanoTime();
+        new AnimationTimer() {
             @Override
-            public void handle(long currentNanoTime)
-            {
+            public void handle(long currentNanoTime) {
+                time = (int) ((currentNanoTime - startNanoTime) / 50000000) + 1;
                 render();
                 update();
             }
         }.start();
-
-        createMap();
-
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
     }
 
-    public void createMap() {
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
+    public void createMap() throws IOException {
+        Scanner scanner = new Scanner(new File("res/levels/Level1.txt"));
+        HEIGHT = scanner.nextInt();
+        WIDTH = scanner.nextInt();
+        scanner.nextLine();
+        for (int i = 0; i < HEIGHT; i++) {
+            String string = scanner.nextLine();
+            for (int j = 0; j < WIDTH; j++) {
+                char c = string.charAt(j);
                 Entity object;
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                    object = new Wall(i, j, Sprite.wall.getFxImage());
-                }
-                else {
-                    object = new Grass(i, j, Sprite.grass.getFxImage());
+                if (c == '#') {
+                    object = new Wall(j, i, Sprite.wall);
+                } else {
+                    object = new Grass(j, i, Sprite.grass);
                 }
                 stillObjects.add(object);
             }
         }
+
     }
 
     public void update() {

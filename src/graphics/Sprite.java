@@ -1,4 +1,4 @@
-package uet.oop.bomberman.graphics;
+package graphics;
 
 import javafx.scene.image.*;
 
@@ -205,6 +205,14 @@ public class Sprite {
 		Arrays.fill(_pixels, color);
 	}
 
+	public int get_realWidth() {
+		return _realWidth;
+	}
+
+	public int get_realHeight() {
+		return _realHeight;
+	}
+
 	private void load() {
 		for (int y = 0; y < SIZE; y++) {
 			for (int x = 0; x < SIZE; x++) {
@@ -213,24 +221,8 @@ public class Sprite {
 		}
 	}
 	
-	public static Sprite movingSprite(Sprite normal, Sprite x1, Sprite x2, int animate, int time) {
-		int calc = animate % time;
-		int diff = time / 3;
-		
-		if(calc < diff) {
-			return normal;
-		}
-			
-		if(calc < diff * 2) {
-			return x1;
-		}
-			
-		return x2;
-	}
-	
-	public static Sprite movingSprite(Sprite x1, Sprite x2, int animate, int time) {
-		int diff = time / 2;
-		return (animate % time > diff) ? x1 : x2; 
+	public static Sprite movingSprite(Sprite[] sprites, int animate, int time) {
+		return sprites[time % animate];
 	}
 	
 	public int getSize() {

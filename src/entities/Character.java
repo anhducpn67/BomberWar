@@ -1,13 +1,17 @@
 package entities;
 
 import graphics.Sprite;
+import map.GameMap;
 
 public abstract class Character extends Entity {
-    protected static final double defaultVelocity = 0.1;
+    protected static final double defaultVelocity = 1;
 
     protected double velocityX;
     protected double velocityY;
-    protected String direction;
+    protected String currentAnimate;
+    {
+        currentAnimate = "RIGHT";
+    }
 
     public Character(int x, int y, double velocityX, double velocityY, Sprite sprite) {
         super( x, y, sprite);
@@ -27,10 +31,29 @@ public abstract class Character extends Entity {
 
     public void move() {
         if (isMovable) {
-            x += velocityX;
-            y += velocityY;
+            x += velocityX * BombermanGame.elapsedTime;
+            y += velocityY * BombermanGame.elapsedTime;
         }
     }
 
-    abstract void checkCollision();
+    public void checkCollisionForWall(GameMap gameMap) {
+        x += this.velocityX * BombermanGame.elapsedTime;
+        y += this.velocityY * BombermanGame.elapsedTime;
+        isMovable = true;
+        for (int i = 0; i < BombermanGame.HEIGHT; i++) {
+            for (int j = 0; j < BombermanGame.WIDTH; j++) {
+                Entity entity = gameMap.map[j][i];
+                if (entity.canBlock && this.isCollision(entity)) {
+                    isMovable = false;
+                }
+            }
+        }
+        x -= this.velocityX * BombermanGame.elapsedTime;
+        y -= this.velocityY * BombermanGame.elapsedTime;
+    }
+
+    public void checkCollision(GameMap gameMap) {
+        checkCollisionForWall(gameMap);
+    }
+    abstract void handleKeyInput();
 }

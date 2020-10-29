@@ -1,52 +1,65 @@
 package entities;
 
 import graphics.Sprite;
+import input.KeyInput;
+import map.GameMap;
+
+import java.util.HashMap;
 
 
 public class Bomber extends Character {
-    private final Sprite[] animated = new Sprite[]{Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2};
+    private final HashMap<String, Sprite[]> animatedSprites = new HashMap<>();
+    {
+        animatedSprites.put("LEFT", new Sprite[]{Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2});
+        animatedSprites.put("RIGHT", new Sprite[]{Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2});
+        animatedSprites.put("UP", new Sprite[]{Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2});
+        animatedSprites.put("DOWN", new Sprite[]{Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2});
+    }
 
     public Bomber(int x, int y, double velocityX, double velocityY, Sprite sprite) {
         super( x, y, velocityX, velocityY, sprite);
     }
 
     @Override
-    void checkCollision() {
-        x += this.velocityX;
-        y += this.velocityY;
-        isMovable = true;
-        for (Entity entity: BombermanGame.stillObjects) {
-            if (entity instanceof Wall && this.isCollision(entity)) {
-                isMovable = false;
-            }
+    void handleKeyInput() {
+        this.setVelocity(0,0);
+        if (KeyInput.keyInput.get("LEFT")) {
+            this.setVelocity(-defaultVelocity,0);
+            currentAnimate = "LEFT";
         }
-        x -= this.velocityX;
-        y -= this.velocityY;
+        if (KeyInput.keyInput.get("RIGHT")) {
+            this.setVelocity(defaultVelocity, 0);
+            currentAnimate = "RIGHT";
+        }
+        if (KeyInput.keyInput.get("UP")) {
+            this.setVelocity(0, -defaultVelocity);
+            currentAnimate = "UP";
+        }
+        if (KeyInput.keyInput.get("DOWN")) {
+            this.setVelocity(0, defaultVelocity);
+            currentAnimate = "DOWN";
+        }
+        if (KeyInput.keyInput.get("SPACE")) {
+            createBomb();
+        }
+    }
+
+    private void createBomb() {
+
     }
 
     @Override
-    public void update() {
-        System.out.println(x + " " + y);
+    public void update(GameMap gameMap) {
+        handleKeyInput();
+        checkCollision(gameMap);
         updateAnimated();
-        this.direction = "LEFT";
-        this.setVelocity(0,0);
-        if (BombermanGame.input.contains("LEFT"))
-            this.setVelocity(-defaultVelocity,0);
-        if (BombermanGame.input.contains("RIGHT")) {
-            this.setVelocity(defaultVelocity, 0);
-        }
-        if (BombermanGame.input.contains("UP"))
-            this.setVelocity(0,-defaultVelocity);
-        if (BombermanGame.input.contains("DOWN"))
-            this.setVelocity(0,defaultVelocity);
-        checkCollision();
         if (isMovable) {
             move();
         }
     }
 
     private void updateAnimated() {
-        this.sprite = Sprite.movingSprite(animated, 3, BombermanGame.time);
+        this.sprite = Sprite.movingSprite(animatedSprites.get(currentAnimate), 3, BombermanGame.time);
         this.img = this.sprite.getFxImage();
     }
 }

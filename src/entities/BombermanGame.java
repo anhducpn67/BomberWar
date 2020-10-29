@@ -1,5 +1,7 @@
 package entities;
 
+import input.KeyInput;
+import input.LongValue;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -8,20 +10,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import graphics.Sprite;
+import map.GameMap;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class BombermanGame extends Application {
     
     public static int WIDTH;
     public static int HEIGHT;
     public static int time;
-    public static ArrayList<String> input = new ArrayList<>();
-    public static List<Entity> entities = new ArrayList<>();
-    public static List<Entity> stillObjects = new ArrayList<>();
+    public static double elapsedTime;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -32,7 +30,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        createMap();
+        GameMap gameMap = new GameMap("res/levels/Level1.txt");
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
         Group root = new Group();
@@ -43,56 +41,25 @@ public class BombermanGame extends Application {
         scene.setOnKeyPressed(
                 e -> {
                     String code = e.getCode().toString();
-                    if ( !input.contains(code) )
-                        input.add( code );
+                    KeyInput.keyInput.put(code, true);
                 });
         scene.setOnKeyReleased(
                 e -> {
                     String code = e.getCode().toString();
-                    input.remove( code );
+                    KeyInput.keyInput.put(code, false);
                 });
-
-        Entity bomberman = new Bomber(1, 1, 0, 0, Sprite.player_right);
-        entities.add(bomberman);
         final long startNanoTime = System.nanoTime();
+        LongValue lastNanoTime = new LongValue( System.nanoTime() );
         new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
-                time = (int) ((currentNanoTime - startNanoTime) / 50000000) + 1;
-                render();
-                update();
+                time = (int) ((currentNanoTime - startNanoTime) / 60000000) + 1;
+                elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
+                lastNanoTime.value = currentNanoTime;
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                gameMap.updateMap();
+                gameMap.renderMap(gc);
             }
         }.start();
-    }
-
-    public void createMap() throws IOException {
-        Scanner scanner = new Scanner(new File("res/levels/Level1.txt"));
-        HEIGHT = scanner.nextInt();
-        WIDTH = scanner.nextInt();
-        scanner.nextLine();
-        for (int i = 0; i < HEIGHT; i++) {
-            String string = scanner.nextLine();
-            for (int j = 0; j < WIDTH; j++) {
-                char c = string.charAt(j);
-                Entity object;
-                if (c == '#') {
-                    object = new Wall(j, i, Sprite.wall);
-                } else {
-                    object = new Grass(j, i, Sprite.grass);
-                }
-                stillObjects.add(object);
-            }
-        }
-
-    }
-
-    public void update() {
-        entities.forEach(Entity::update);
-    }
-
-    public void render() {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        stillObjects.forEach(g -> g.render(gc));
-        entities.forEach(g -> g.render(gc));
     }
 }

@@ -4,6 +4,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import graphics.Sprite;
+import map.GameMap;
 
 public abstract class Entity {
     protected double x;
@@ -11,7 +12,10 @@ public abstract class Entity {
     protected Sprite sprite;
     protected Image img;
     protected boolean isDestroyable = false;
+    protected boolean isDestroyed = false;
     protected boolean isMovable = false;
+    protected boolean canBlock = false;
+    protected boolean isDangerous = false;
 
     public Rectangle2D getBoundary() {
         return new Rectangle2D(x * Sprite.DEFAULT_SIZE, y * Sprite.DEFAULT_SIZE,
@@ -37,5 +41,5 @@ public abstract class Entity {
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x * Sprite.SCALED_SIZE, y * Sprite.SCALED_SIZE);
     }
-    public abstract void update();
+    public abstract void update(GameMap gameMap);
 }

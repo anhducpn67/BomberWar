@@ -20,6 +20,7 @@ public class BombermanGame extends Application {
     public static int HEIGHT;
     public static int time;
     public static double elapsedTime;
+    public static GameMap gameMap = GameMap.getGameMap();
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -30,7 +31,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        GameMap gameMap = new GameMap("res/levels/Level1.txt");
+        gameMap.createMap("res/levels/Level1.txt");
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
         Group root = new Group();

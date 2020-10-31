@@ -1,25 +1,35 @@
-package entities;
+package entities.bean;
 
+import graphics.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import graphics.Sprite;
 import map.GameMap;
 
 public abstract class Entity {
-    protected double x;
-    protected double y;
+    public GameMap gameMap = GameMap.getGameMap();
+
+    protected int x;
+    protected int y;
     protected Sprite sprite;
     protected Image img;
-    protected boolean isDestroyable = false;
-    protected boolean isDestroyed = false;
-    protected boolean isMovable = false;
-    protected boolean canBlock = false;
-    protected boolean isDangerous = false;
+    public boolean isDestroyable = false;
+    public boolean isMovable = false;
+    public boolean canBlock = false;
+    public boolean isDangerous = false;
+    public boolean isDestroyed = false;
 
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(x * Sprite.DEFAULT_SIZE, y * Sprite.DEFAULT_SIZE,
-                Sprite.DEFAULT_SIZE, Sprite.DEFAULT_SIZE);
+        return new Rectangle2D(x * Sprite.SCALED_SIZE, y * Sprite.SCALED_SIZE,
+                Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     public boolean isCollision(Entity other)
@@ -34,12 +44,10 @@ public abstract class Entity {
         this.img = sprite.getFxImage();
     }
 
-    public void setDestroyable(boolean destroyable) {
-        isDestroyable = destroyable;
-    }
+    abstract public void destroy();
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x * Sprite.SCALED_SIZE, y * Sprite.SCALED_SIZE);
     }
-    public abstract void update(GameMap gameMap);
+    public abstract void update();
 }

@@ -1,65 +1,58 @@
-package entities;
+package entities.character;
 
+import entities.bean.Character;
+import entities.bomb.Bomb;
 import graphics.Sprite;
 import input.KeyInput;
-import map.GameMap;
-
-import java.util.HashMap;
-
 
 public class Bomber extends Character {
-    private final HashMap<String, Sprite[]> animatedSprites = new HashMap<>();
-    {
+
+    public Bomber(int x, int y, double velocityX, double velocityY, Sprite sprite) {
+        super( x, y, velocityX, velocityY, sprite);
         animatedSprites.put("LEFT", new Sprite[]{Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2});
         animatedSprites.put("RIGHT", new Sprite[]{Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2});
         animatedSprites.put("UP", new Sprite[]{Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2});
         animatedSprites.put("DOWN", new Sprite[]{Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2});
-    }
-
-    public Bomber(int x, int y, double velocityX, double velocityY, Sprite sprite) {
-        super( x, y, velocityX, velocityY, sprite);
+        animatedSprites.put("DESTROYED", new Sprite[]{Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3});
+        currentAnimate = animatedSprites.get("RIGHT");
     }
 
     @Override
-    void handleKeyInput() {
+    public void handleKeyInput() {
         this.setVelocity(0,0);
         if (KeyInput.keyInput.get("LEFT")) {
             this.setVelocity(-defaultVelocity,0);
-            currentAnimate = "LEFT";
+            currentAnimate = animatedSprites.get("LEFT");
+            KeyInput.keyInput.put("LEFT", false);
         }
         if (KeyInput.keyInput.get("RIGHT")) {
             this.setVelocity(defaultVelocity, 0);
-            currentAnimate = "RIGHT";
+            currentAnimate = animatedSprites.get("RIGHT");
+            KeyInput.keyInput.put("RIGHT", false);
         }
         if (KeyInput.keyInput.get("UP")) {
             this.setVelocity(0, -defaultVelocity);
-            currentAnimate = "UP";
+            currentAnimate = animatedSprites.get("UP");
+            KeyInput.keyInput.put("UP", false);
         }
         if (KeyInput.keyInput.get("DOWN")) {
             this.setVelocity(0, defaultVelocity);
-            currentAnimate = "DOWN";
+            currentAnimate = animatedSprites.get("DOWN");
+            KeyInput.keyInput.put("DOWN", false);
         }
         if (KeyInput.keyInput.get("SPACE")) {
             createBomb();
+            KeyInput.keyInput.put("SPACE", false);
         }
     }
 
     private void createBomb() {
-
+        Bomb bomb = new Bomb(this.x, this.y, Sprite.bomb);
+        gameMap.bombs.add(bomb);
     }
 
     @Override
-    public void update(GameMap gameMap) {
-        handleKeyInput();
-        checkCollision(gameMap);
-        updateAnimated();
-        if (isMovable) {
-            move();
-        }
-    }
-
-    private void updateAnimated() {
-        this.sprite = Sprite.movingSprite(animatedSprites.get(currentAnimate), 3, BombermanGame.time);
-        this.img = this.sprite.getFxImage();
+    public void delete() {
+        super.delete();
     }
 }

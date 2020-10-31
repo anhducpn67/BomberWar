@@ -222,7 +222,7 @@ public class Sprite {
 	}
 	
 	public static Sprite movingSprite(Sprite[] sprites, int animate, int time) {
-		return sprites[time % animate];
+		return sprites[(time + 3) / 3 % animate];
 	}
 	
 	public int getSize() {

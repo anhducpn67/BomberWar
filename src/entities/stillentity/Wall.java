@@ -1,7 +1,7 @@
-package entities;
+package entities.stillentity;
 
+import entities.bean.Entity;
 import graphics.Sprite;
-import map.GameMap;
 
 public class Wall extends Entity {
 
@@ -12,7 +12,12 @@ public class Wall extends Entity {
     }
 
     @Override
-    public void update(GameMap gameMap) {
+    public void destroy() {
+
+    }
+
+    @Override
+    public void update() {
 
     }
 }

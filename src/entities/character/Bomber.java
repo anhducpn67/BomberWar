@@ -1,11 +1,15 @@
 package entities.character;
 
 import entities.bean.Character;
+import entities.bean.Enemy;
+import entities.bean.Item;
 import entities.bomb.Bomb;
 import graphics.Sprite;
 import input.KeyInput;
 
 public class Bomber extends Character {
+
+    public int maxBombs = 3;
 
     public Bomber(int x, int y, double velocityX, double velocityY, Sprite sprite) {
         super( x, y, velocityX, velocityY, sprite);
@@ -15,6 +19,22 @@ public class Bomber extends Character {
         animatedSprites.put("DOWN", new Sprite[]{Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2});
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3});
         currentAnimate = animatedSprites.get("RIGHT");
+    }
+
+    @Override
+    public void checkCollision() {
+        super.checkCollision();
+        for (Character character: gameMap.characters) {
+            if (this.isCollision(character) && character instanceof Enemy) {
+                destroy();
+            }
+        }
+        for (Item item: gameMap.items) {
+            if (this.isCollision(item)) {
+                item.powerUp(this);
+                item.destroy();
+            }
+        }
     }
 
     @Override
@@ -47,6 +67,9 @@ public class Bomber extends Character {
     }
 
     private void createBomb() {
+        if (gameMap.bombs.size() == maxBombs) {
+            return;
+        }
         Bomb bomb = new Bomb(this.x, this.y, Sprite.bomb);
         gameMap.bombs.add(bomb);
     }

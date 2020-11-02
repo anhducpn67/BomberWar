@@ -33,7 +33,7 @@ public abstract class Character extends AnimateEntity {
         }
     }
 
-    public void checkCollisionStillEntities() {
+    public void checkCollision() {
         x += this.velocityX;
         y += this.velocityY;
         isMovable = true;
@@ -47,15 +47,15 @@ public abstract class Character extends AnimateEntity {
         }
         for (Bomb bomb: gameMap.bombs) {
             if (this.isCollision(bomb)) {
-                isMovable = false;
+                if (bomb.isDestroyed) {
+                    this.destroy();
+                } else {
+                    isMovable = false;
+                }
             }
         }
         x -= this.velocityX;
         y -= this.velocityY;
-    }
-
-    public void checkCollision() {
-        checkCollisionStillEntities();
     }
 
     @Override

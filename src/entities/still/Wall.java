@@ -1,13 +1,13 @@
-package entities.stillentity;
+package entities.still;
 
 import entities.bean.Entity;
 import graphics.Sprite;
 
-public class Grass extends Entity {
+public class Wall extends Entity {
 
-    public Grass(int x, int y, Sprite sprite) {
+    public Wall(int x, int y, Sprite sprite) {
         super(x, y, sprite);
-        canBlock = false;
+        canBlock = true;
         isDangerous = false;
     }
 

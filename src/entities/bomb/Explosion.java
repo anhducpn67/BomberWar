@@ -3,6 +3,7 @@ package entities.bomb;
 import entities.bean.AnimateEntity;
 import entities.bean.Character;
 import entities.bean.Entity;
+import entities.bean.Item;
 import graphics.Sprite;
 
 public class Explosion extends AnimateEntity {
@@ -26,13 +27,16 @@ public class Explosion extends AnimateEntity {
 
     @Override
     public void delete() {
-
+        if (!isDestroyed) {
+            isDestroyed = true;
+            checkMap();
+        }
     }
 
     @Override
     public void update() {
         updateAnimated();
-        checkMap();
+        delete();
     }
 
     private void checkMap() {
@@ -41,8 +45,13 @@ public class Explosion extends AnimateEntity {
             entity.destroy();
         }
         for (Character character: gameMap.characters) {
-            if (character.getX() == this.x && character.getY() == this.y) {
+            if (this.isCollision(character)) {
                 character.destroy();
+            }
+        }
+        for (Item item: gameMap.items) {
+            if (this.isCollision(item)) {
+                item.destroy();
             }
         }
     }

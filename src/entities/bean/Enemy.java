@@ -4,11 +4,11 @@ import graphics.Sprite;
 
 import java.util.Random;
 
-abstract public class Monster extends Character {
+abstract public class Enemy extends Character {
 
     private int direction;
 
-    public Monster(int x, int y, double velocityX, double velocityY, Sprite sprite) {
+    public Enemy(int x, int y, double velocityX, double velocityY, Sprite sprite) {
         super(x, y, velocityX, velocityY, sprite);
     }
 

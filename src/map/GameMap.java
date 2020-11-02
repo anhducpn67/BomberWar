@@ -3,12 +3,15 @@ package map;
 import entities.*;
 import entities.bean.Entity;
 import entities.bean.Character;
-import entities.character.Balloom;
+import entities.bean.Item;
+import entities.character.Balloon;
 import entities.character.Bomber;
 import entities.bomb.Bomb;
-import entities.stillentity.Brick;
-import entities.stillentity.Grass;
-import entities.stillentity.Wall;
+import entities.character.Oneal;
+import entities.item.Flame;
+import entities.still.Brick;
+import entities.still.Grass;
+import entities.still.Wall;
 import graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -20,7 +23,8 @@ import java.util.Scanner;
 public class GameMap {
     private static GameMap gameMap;
     public Entity[][] map;
-    public ArrayList<Character> characters = new ArrayList<>();
+    public ArrayList<Character> characters;
+    public ArrayList<Item> items;
     public ArrayList<Bomb> bombs = new ArrayList<>();
     public long score;
 
@@ -39,13 +43,16 @@ public class GameMap {
         Scanner scanner = new Scanner(new File(mapPath));
         BombermanGame.HEIGHT = scanner.nextInt();
         BombermanGame.WIDTH = scanner.nextInt();
-        map = new Entity[BombermanGame.WIDTH][BombermanGame.HEIGHT];
         scanner.nextLine();
+        map = new Entity[BombermanGame.WIDTH][BombermanGame.HEIGHT];
+        characters = new ArrayList<>();
+        bombs = new ArrayList<>();
+        items = new ArrayList<>();
         for (int i = 0; i < BombermanGame.HEIGHT; i++) {
             String string = scanner.nextLine();
             for (int j = 0; j < BombermanGame.WIDTH; j++) {
                 char c = string.charAt(j);
-                Entity object = new Grass(j, i, Sprite.grass);;
+                Entity object = new Grass(j, i, Sprite.grass);
                 if (c == '#') {
                     object = new Wall(j, i, Sprite.wall);
                 }
@@ -57,8 +64,22 @@ public class GameMap {
                     characters.add(bomberman);
                 }
                 if (c == '1') {
-                    Character balloom = new Balloom(j, i, 0, 0, Sprite.balloom_right1);
+                    Character balloom = new Balloon(j, i, 0, 0, Sprite.balloon_right1);
                     characters.add(balloom);
+                }
+                if (c == '2') {
+                    Character oneal = new Oneal(j, i, 0, 0, Sprite.oneal_right1);
+                    characters.add(oneal);
+                }
+                if (c == 'f') {
+                    object = new Brick(j, i, Sprite.brick);
+                    Item flame = new Flame(j, i, Sprite.powerup_flames);
+                    items.add(flame);
+                }
+                if (c == 'b') {
+                    object = new Brick(j, i, Sprite.brick);
+                    Item bomb = new entities.item.Bomb(j, i, Sprite.powerup_bombs);
+                    items.add(bomb);
                 }
                 map[j][i] = object;
             }
@@ -77,6 +98,9 @@ public class GameMap {
         for (Bomb bomb: bombs) {
             bomb.update();
         }
+        for (Item item: items) {
+            item.update();
+        }
     }
 
     public void renderMap(GraphicsContext gc) {
@@ -90,6 +114,9 @@ public class GameMap {
         }
         for (Bomb bomb: bombs) {
             bomb.render(gc);
+        }
+        for (Item item: items) {
+            item.render(gc);
         }
     }
 }

@@ -11,6 +11,7 @@ import entities.character.Oneal;
 import entities.item.Flame;
 import entities.still.Brick;
 import entities.still.Grass;
+import entities.still.Portal;
 import entities.still.Wall;
 import graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
@@ -64,8 +65,8 @@ public class GameMap {
                     characters.add(bomberman);
                 }
                 if (c == '1') {
-                    Character balloom = new Balloon(j, i, 0, 0, Sprite.balloon_right1);
-                    characters.add(balloom);
+                    Character balloon = new Balloon(j, i, 0, 0, Sprite.balloon_right1);
+                    characters.add(balloon);
                 }
                 if (c == '2') {
                     Character oneal = new Oneal(j, i, 0, 0, Sprite.oneal_right1);
@@ -73,13 +74,18 @@ public class GameMap {
                 }
                 if (c == 'f') {
                     object = new Brick(j, i, Sprite.brick);
-                    Item flame = new Flame(j, i, Sprite.powerup_flames);
+                    Item flame = new Flame(j, i, Sprite.powerUp_flames);
                     items.add(flame);
                 }
                 if (c == 'b') {
                     object = new Brick(j, i, Sprite.brick);
-                    Item bomb = new entities.item.Bomb(j, i, Sprite.powerup_bombs);
+                    Item bomb = new entities.item.Bomb(j, i, Sprite.powerUp_bombs);
                     items.add(bomb);
+                }
+                if (c == 'x') {
+                    object = new Brick(j, i, Sprite.brick);
+                    Item portal = new Portal(j, i, Sprite.portal);
+                    items.add(portal);
                 }
                 map[j][i] = object;
             }
@@ -117,6 +123,14 @@ public class GameMap {
         }
         for (Item item: items) {
             item.render(gc);
+        }
+    }
+
+    public void nextLevel() {
+        try {
+            gameMap.createMap("res/levels/Level2.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

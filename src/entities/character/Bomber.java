@@ -9,7 +9,7 @@ import input.KeyInput;
 
 public class Bomber extends Character {
 
-    public int maxBombs = 3;
+    public int maxBombs = 1;
 
     public Bomber(int x, int y, double velocityX, double velocityY, Sprite sprite) {
         super( x, y, velocityX, velocityY, sprite);

@@ -8,7 +8,7 @@ abstract public class Enemy extends Character {
 
     private int direction;
 
-    public Enemy(int x, int y, double velocityX, double velocityY, Sprite sprite) {
+    public Enemy(int x, int y, int velocityX, int velocityY, Sprite sprite) {
         super(x, y, velocityX, velocityY, sprite);
     }
 

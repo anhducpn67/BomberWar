@@ -60,7 +60,7 @@ public class Sprite {
 	| Character
 	|--------------------------------------------------------------------------
 	 */
-	//BALLOM
+	//BALLOON
 	public static Sprite balloon_left1 = new Sprite(DEFAULT_SIZE, 9, 0, SpriteSheet.tiles, 16, 16);
 	public static Sprite balloon_left2 = new Sprite(DEFAULT_SIZE, 9, 1, SpriteSheet.tiles, 16, 16);
 	public static Sprite balloon_left3 = new Sprite(DEFAULT_SIZE, 9, 2, SpriteSheet.tiles, 16, 16);
@@ -190,8 +190,8 @@ public class Sprite {
 		_x = x * SIZE;
 		_y = y * SIZE;
 		_sheet = sheet;
-		_realWidth = rw;
-		_realHeight = rh;
+		_realWidth = rw * 2;
+		_realHeight = rh * 2;
 		load();
 	}
 	
@@ -221,8 +221,8 @@ public class Sprite {
 		}
 	}
 	
-	public static Sprite movingSprite(Sprite[] sprites, int animate, int time) {
-		return sprites[(time + 3) / 3 % animate];
+	public static Sprite movingSprite(Sprite[] sprites, int animate, long time) {
+		return sprites[(int) ((time + 3) / 3 % animate)];
 	}
 	
 	public int getSize() {

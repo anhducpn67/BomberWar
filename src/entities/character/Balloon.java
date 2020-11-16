@@ -5,7 +5,7 @@ import graphics.Sprite;
 
 public class Balloon extends Enemy {
 
-    public Balloon(int x, int y, double velocityX, double velocityY, Sprite sprite) {
+    public Balloon(int x, int y, int velocityX, int velocityY, Sprite sprite) {
         super(x, y, velocityX, velocityY, sprite);
         animatedSprites.put("LEFT", new Sprite[]{Sprite.balloon_left1, Sprite.balloon_left2, Sprite.balloon_left3});
         animatedSprites.put("RIGHT", new Sprite[]{Sprite.balloon_right1, Sprite.balloon_right2, Sprite.balloon_right3});

@@ -29,7 +29,7 @@ public abstract class Item extends Entity {
             return;
         }
         gameMap.items.remove(this);
-        gameMap.map[this.x][this.y] = new Grass(this.x, this.y, Sprite.grass);
+        gameMap.map[this.mapX][this.mapY] = new Grass(this.mapX, this.mapY, Sprite.grass);
     }
 
     abstract public void powerUp(Bomber bomber);

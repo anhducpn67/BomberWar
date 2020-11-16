@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Bomb extends AnimateEntity {
     private Explosion[] explosionRight, explosionLeft, explosionUp, explosionDown;
-    public static int length = 3;
+    public static int length = 1;
     final long timeCreate;
 
     public Bomb(int x, int y, Sprite sprite) {
@@ -18,72 +18,72 @@ public class Bomb extends AnimateEntity {
         this.timeCreate = System.nanoTime();
         animatedSprites.put("BOMB", new Sprite[]{Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2});
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2});
-        canBlock = true;
+        canBlock = false;
         isDangerous = true;
         currentAnimate = animatedSprites.get("BOMB");
-        explosionRight = new Explosion[length];
-        explosionLeft = new Explosion[length];
-        explosionDown = new Explosion[length];
-        explosionUp = new Explosion[length];
+        explosionRight = new Explosion[5];
+        explosionLeft = new Explosion[5];
+        explosionDown = new Explosion[5];
+        explosionUp = new Explosion[5];
         for (int i = 0; i < length; i++) {
-            if (this.x + i + 1 >= BombermanGame.WIDTH) {
+            if (this.mapX + i + 1 >= BombermanGame.WIDTH) {
                 break;
             }
-            Entity entity = gameMap.map[this.x + i + 1][this.y];
+            Entity entity = gameMap.map[this.mapX + i + 1][this.mapY];
             if (entity instanceof Wall) {
                 break;
             }
-            explosionRight[i] = new Explosion(this.x + i + 1, this.y,
+            explosionRight[i] = new Explosion(this.mapX + i + 1, this.mapY,
                     Sprite.explosion_horizontal, "HORIZONTAL");
             if (entity instanceof Brick) {
                 break;
             }
             if (i == length - 1) {
-                explosionRight[length - 1] = new Explosion(this.x + length, this.y,
+                explosionRight[length - 1] = new Explosion(this.mapX + length, this.mapY,
                         Sprite.explosion_horizontal_right_last1, "RIGHT_LAST");
             }
         }
         for (int i = 0; i < length; i++) {
-            if (this.x - i - 1 >= 0 && !(gameMap.map[this.x - i - 1][this.y] instanceof Wall)) {
-                explosionLeft[i] = new Explosion(this.x - i - 1, this.y,
+            if (this.mapX - i - 1 >= 0 && !(gameMap.map[this.mapX - i - 1][this.mapY] instanceof Wall)) {
+                explosionLeft[i] = new Explosion(this.mapX - i - 1, this.mapY,
                         Sprite.explosion_horizontal, "HORIZONTAL");
-                if (gameMap.map[this.x - i - 1][this.y] instanceof Brick) {
+                if (gameMap.map[this.mapX - i - 1][this.mapY] instanceof Brick) {
                     break;
                 }
             } else break;
             if (i == length - 1) {
-                if (this.x - length >= 0 && !(gameMap.map[this.x - length][this.y] instanceof Wall)) {
-                    explosionLeft[length - 1] = new Explosion(this.x - length, this.y,
+                if (this.mapX - length >= 0 && !(gameMap.map[this.mapX - length][this.mapY] instanceof Wall)) {
+                    explosionLeft[length - 1] = new Explosion(this.mapX - length, this.mapY,
                             Sprite.explosion_horizontal_right_last1, "LEFT_LAST");
                 }
             }
         }
         for (int i = 0; i < length; i++) {
-            if (this.y - i - 1 >= 0 && !(gameMap.map[this.x][this.y - i - 1] instanceof Wall)) {
-                explosionUp[i] = new Explosion(this.x, this.y - i - 1,
+            if (this.mapY - i - 1 >= 0 && !(gameMap.map[this.mapX][this.mapY - i - 1] instanceof Wall)) {
+                explosionUp[i] = new Explosion(this.mapX, this.mapY - i - 1,
                         Sprite.explosion_vertical, "VERTICAL");
-                if (gameMap.map[this.x][this.y - i - 1] instanceof Brick) {
+                if (gameMap.map[this.mapX][this.mapY - i - 1] instanceof Brick) {
                     break;
                 }
             } else break;
             if (i == length - 1) {
-                if (this.y - length >= 0 && !(gameMap.map[this.x][this.y - length] instanceof Wall)) {
-                    explosionUp[length - 1] = new Explosion(this.x, this.y - length,
+                if (this.mapY - length >= 0 && !(gameMap.map[this.mapX][this.mapY - length] instanceof Wall)) {
+                    explosionUp[length - 1] = new Explosion(this.mapX, this.mapY - length,
                             Sprite.explosion_horizontal_right_last1, "UP_LAST");
                 }
             }
         }
         for (int i = 0; i < length; i++) {
-            if (this.y + i + 1 < BombermanGame.HEIGHT && !(gameMap.map[this.x][this.y + i + 1] instanceof Wall)) {
-                explosionDown[i] = new Explosion(this.x, this.y + i + 1,
+            if (this.mapY + i + 1 < BombermanGame.HEIGHT && !(gameMap.map[this.mapX][this.mapY + i + 1] instanceof Wall)) {
+                explosionDown[i] = new Explosion(this.mapX, this.mapY + i + 1,
                         Sprite.explosion_vertical, "VERTICAL");
-                if (gameMap.map[this.x][this.y + i + 1] instanceof Brick) {
+                if (gameMap.map[this.mapX][this.mapY + i + 1] instanceof Brick) {
                     break;
                 }
             } else break;
             if (i == length - 1) {
-                if (this.y + length < BombermanGame.HEIGHT && !(gameMap.map[this.x][this.y + length] instanceof Wall)) {
-                    explosionDown[length - 1] = new Explosion(this.x, this.y + length,
+                if (this.mapY + length < BombermanGame.HEIGHT && !(gameMap.map[this.mapX][this.mapY + length] instanceof Wall)) {
+                    explosionDown[length - 1] = new Explosion(this.mapX, this.mapY + length,
                             Sprite.explosion_horizontal_right_last1, "DOWN_LAST");
                 }
             }
@@ -105,7 +105,7 @@ public class Bomb extends AnimateEntity {
 
     @Override
     public void render(GraphicsContext gc) {
-        gc.drawImage(img, x * Sprite.SCALED_SIZE, y * Sprite.SCALED_SIZE);
+        gc.drawImage(img, pixelX, pixelY);
         if (isDestroyed) {
             for (int i = 0; i < length; i++) {
                 if (explosionRight[i] != null) {

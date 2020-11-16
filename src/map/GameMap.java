@@ -26,6 +26,7 @@ public class GameMap {
     public Entity[][] map;
     public ArrayList<Character> characters;
     public ArrayList<Item> items;
+    public Bomber bomber;
     public ArrayList<Bomb> bombs = new ArrayList<>();
     public long score;
 
@@ -61,8 +62,9 @@ public class GameMap {
                     object = new Brick(j, i, Sprite.brick);
                 }
                 if (c == 'p') {
-                    Character bomberman = new Bomber(j, i, 0, 0, Sprite.player_right);
+                    Bomber bomberman = new Bomber(j, i, 0, 0, Sprite.player_right);
                     characters.add(bomberman);
+                    bomber = bomberman;
                 }
                 if (c == '1') {
                     Character balloon = new Balloon(j, i, 0, 0, Sprite.balloon_right1);
@@ -82,6 +84,11 @@ public class GameMap {
                     Item bomb = new entities.item.Bomb(j, i, Sprite.powerUp_bombs);
                     items.add(bomb);
                 }
+                if (c == 's') {
+                    object = new Brick(j, i, Sprite.brick);
+                    Item speed = new entities.item.Speed(j, i, Sprite.powerup_speed);
+                    items.add(speed);
+                }
                 if (c == 'x') {
                     object = new Brick(j, i, Sprite.brick);
                     Item portal = new Portal(j, i, Sprite.portal);
@@ -93,6 +100,9 @@ public class GameMap {
     }
 
     public void updateMap() {
+        for (Bomb bomb: bombs) {
+            bomb.update();
+        }
         for (int i = 0; i < BombermanGame.HEIGHT; i++) {
             for (int j = 0; j < BombermanGame.WIDTH; j++) {
                 map[j][i].update();
@@ -100,9 +110,6 @@ public class GameMap {
         }
         for (Character character: characters) {
             character.update();
-        }
-        for (Bomb bomb: bombs) {
-            bomb.update();
         }
         for (Item item: items) {
             item.update();
@@ -115,11 +122,11 @@ public class GameMap {
                 map[j][i].render(gc);
             }
         }
-        for (Character character: characters) {
-            character.render(gc);
-        }
         for (Bomb bomb: bombs) {
             bomb.render(gc);
+        }
+        for (Character character: characters) {
+            character.render(gc);
         }
         for (Item item: items) {
             item.render(gc);

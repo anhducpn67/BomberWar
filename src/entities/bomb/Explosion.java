@@ -40,7 +40,7 @@ public class Explosion extends AnimateEntity {
     }
 
     private void checkMap() {
-        Entity entity = gameMap.map[this.x][this.y];
+        Entity entity = gameMap.map[this.mapX][this.mapY];
         if (entity.isDestroyable) {
             entity.destroy();
         }

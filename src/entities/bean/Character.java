@@ -2,41 +2,68 @@ package entities.bean;
 
 import entities.BombermanGame;
 import entities.bomb.Bomb;
+import entities.character.Bomber;
 import graphics.Sprite;
 
 public abstract class Character extends AnimateEntity {
 
-    protected static double defaultVelocity = 1;
-    protected double velocityX;
-    protected double velocityY;
+    protected int defaultVelocity = 1;
+    protected int velocityX;
+    protected int velocityY;
+    protected boolean isStand;
+    protected int speed;
 
-    public Character(int x, int y, double velocityX, double velocityY, Sprite sprite) {
+    public Character(int x, int y, int velocityX, int velocityY, Sprite sprite) {
         super( x, y, sprite);
         this.velocityX = velocityX;
         this.velocityY = velocityY;
+        speed = 1;
+        isStand = true;
     }
 
-    public void setVelocity(double velocityX, double velocityY) {
+    public void setVelocity(int velocityX, int velocityY) {
         this.velocityX = velocityX;
         this.velocityY = velocityY;
     }
 
-    public void addVelocity(double velocityX, double velocityY) {
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void addVelocity(int velocityX, int velocityY) {
         this.velocityX += velocityX;
         this.velocityY += velocityY;
     }
 
     public void move() {
-        if (isMovable) {
-            x += velocityX;
-            y += velocityY;
-        }
+        pixelX += velocityX;
+        pixelY += velocityY;
     }
 
     public void checkCollision() {
-        x += this.velocityX;
-        y += this.velocityY;
         isMovable = true;
+        pixelX += this.velocityX;
+        pixelY += this.velocityY;
+        for (Bomb bomb: gameMap.bombs) {
+            if (this.isCollision(bomb)) {
+                if (bomb.isDestroyed) {
+                    this.destroy();
+                } else {
+                    isMovable = false;
+                }
+                if (this instanceof Bomber && !bomb.canBlock) {
+                    isMovable = true;
+                }
+            } else {
+                if (this instanceof Bomber) {
+                    bomb.canBlock = true;
+                }
+            }
+        }
         for (int i = 0; i < BombermanGame.HEIGHT; i++) {
             for (int j = 0; j < BombermanGame.WIDTH; j++) {
                 Entity entity = gameMap.map[j][i];
@@ -45,29 +72,31 @@ public abstract class Character extends AnimateEntity {
                 }
             }
         }
-        for (Bomb bomb: gameMap.bombs) {
-            if (this.isCollision(bomb)) {
-                if (bomb.isDestroyed) {
-                    this.destroy();
-                } else {
-                    isMovable = false;
-                }
-            }
-        }
-        x -= this.velocityX;
-        y -= this.velocityY;
+        isStand = !isMovable || (velocityX == 0 && velocityY == 0);
+        pixelX -= this.velocityX;
+        pixelY -= this.velocityY;
+    }
+
+    public void smootherMove() {
+        mapX = pixelX / Sprite.SCALED_SIZE;
+        mapY = pixelY / Sprite.SCALED_SIZE;
     }
 
     @Override
     public void update() {
         if (isDestroyed) {
             super.update();
-        } else {
+            return;
+        }
+        for (int i = 1; i <= speed; i++) {
             handleKeyInput();
             checkCollision();
-            updateAnimated();
+            if (!isStand) {
+                updateAnimated();
+            }
             if (isMovable) {
                 move();
+                smootherMove();
             }
         }
     }

@@ -19,7 +19,6 @@ public class BombermanGame extends Application {
     public static int WIDTH;
     public static int HEIGHT;
     public static int time;
-    public static double elapsedTime;
     public static GameMap gameMap = GameMap.getGameMap();
 
     private GraphicsContext gc;
@@ -55,7 +54,6 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long currentNanoTime) {
                 time = (int) ((currentNanoTime - startNanoTime) / 60000000) + 1;
-                elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
                 lastNanoTime.value = currentNanoTime;
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 gameMap.updateMap();

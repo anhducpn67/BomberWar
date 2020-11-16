@@ -15,6 +15,6 @@ public class Brick extends AnimateEntity {
 
     @Override
     public void delete() {
-        gameMap.map[this.x][this.y] = new Grass(this.x, this.y, Sprite.grass);
+        gameMap.map[this.mapX][this.mapY] = new Grass(this.mapX, this.mapY, Sprite.grass);
     }
 }

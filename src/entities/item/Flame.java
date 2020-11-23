@@ -12,12 +12,7 @@ public class Flame extends Item {
     }
 
     @Override
-    public void powerUp(Bomber bomber) {
+    public void function(Bomber bomber) {
         Bomb.length += 1;
-    }
-
-    @Override
-    public void update() {
-
     }
 }

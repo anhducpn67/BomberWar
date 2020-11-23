@@ -13,8 +13,8 @@ abstract public class Enemy extends Character {
     }
 
     @Override
-    public void handleKeyInput() {
-        if (!isMovable) {
+    public void getDirection() {
+        if (isCollision) {
             Random rand = new Random();
             direction = rand.nextInt(4);
         }

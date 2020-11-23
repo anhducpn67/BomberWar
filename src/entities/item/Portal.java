@@ -1,4 +1,4 @@
-package entities.still;
+package entities.item;
 
 import entities.bean.Item;
 import entities.character.Bomber;
@@ -11,12 +11,7 @@ public class Portal extends Item {
     }
 
     @Override
-    public void powerUp(Bomber bomber) {
+    public void function(Bomber bomber) {
         gameMap.nextLevel();
-    }
-
-    @Override
-    public void update() {
-
     }
 }

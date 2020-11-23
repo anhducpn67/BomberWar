@@ -4,6 +4,7 @@ import entities.bean.AnimateEntity;
 import entities.bean.Character;
 import entities.bean.Entity;
 import entities.bean.Item;
+import entities.still.Brick;
 import graphics.Sprite;
 
 public class Explosion extends AnimateEntity {
@@ -18,7 +19,7 @@ public class Explosion extends AnimateEntity {
                 Sprite.explosion_vertical1, Sprite.explosion_vertical2});
         animatedSprites.put("LEFT_LAST", new Sprite[]{Sprite.explosion_horizontal_left_last,
                 Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2});
-        animatedSprites.put("UP_LAST", new Sprite[]{Sprite.explosion_vertical_top_last,
+        animatedSprites.put("TOP_LAST", new Sprite[]{Sprite.explosion_vertical_top_last,
                 Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2});
         animatedSprites.put("DOWN_LAST", new Sprite[]{Sprite.explosion_vertical_down_last,
                 Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2});
@@ -29,7 +30,7 @@ public class Explosion extends AnimateEntity {
     public void delete() {
         if (!isDestroyed) {
             isDestroyed = true;
-            checkMap();
+            isCollision();
         }
     }
 
@@ -39,19 +40,24 @@ public class Explosion extends AnimateEntity {
         delete();
     }
 
-    private void checkMap() {
-        Entity entity = gameMap.map[this.mapX][this.mapY];
-        if (entity.isDestroyable) {
-            entity.destroy();
+    private void isCollision() {
+        Entity entity = gameMap.tiles[this.tileX][this.tileY];
+        if (entity instanceof Brick) {
+            ((Brick) entity).delete();
         }
         for (Character character: gameMap.characters) {
             if (this.isCollision(character)) {
-                character.destroy();
+                character.boom();
             }
         }
         for (Item item: gameMap.items) {
             if (this.isCollision(item)) {
                 item.destroy();
+            }
+        }
+        for (Bomb bomb: gameMap.bombs) {
+            if (this.isCollision(bomb)) {
+               // bomb.boom();
             }
         }
     }

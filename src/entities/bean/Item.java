@@ -22,15 +22,14 @@ public abstract class Item extends Entity {
         }
     }
 
-    @Override
     public void destroy() {
         if (isHidden) {
             isHidden = false;
             return;
         }
         gameMap.items.remove(this);
-        gameMap.map[this.mapX][this.mapY] = new Grass(this.mapX, this.mapY, Sprite.grass);
+        gameMap.tiles[this.tileX][this.tileY] = new Grass(this.tileX, this.tileY, Sprite.grass);
     }
 
-    abstract public void powerUp(Bomber bomber);
+    abstract public void function(Bomber bomber);
 }

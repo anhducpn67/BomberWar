@@ -8,7 +8,7 @@ import java.util.HashMap;
 public abstract class AnimateEntity extends Entity {
 
     protected Sprite[] currentAnimate;
-    protected long timeDestroy;
+    protected long timeBoom;
     public final HashMap<String, Sprite[]> animatedSprites = new HashMap<>();
 
     public AnimateEntity(int x, int y, Sprite sprite) {
@@ -20,10 +20,9 @@ public abstract class AnimateEntity extends Entity {
         this.img = this.sprite.getFxImage();
     }
 
-    @Override
-    public void destroy() {
+    public void boom() {
         currentAnimate = animatedSprites.get("DESTROYED");
-        timeDestroy = System.nanoTime();
+        timeBoom = System.nanoTime();
         isDestroyed = true;
     }
 
@@ -31,7 +30,7 @@ public abstract class AnimateEntity extends Entity {
     public void update() {
         if (isDestroyed) {
             final long currentTime = System.nanoTime();
-            double timeDuration = (currentTime - timeDestroy) / 1000000000.0;
+            double timeDuration = (currentTime - timeBoom) / 1000000000.0;
             if (timeDuration <= 0.3) {
                 updateAnimated();
             } else {

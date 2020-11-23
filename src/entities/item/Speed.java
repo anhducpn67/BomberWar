@@ -11,12 +11,7 @@ public class Speed extends Item {
     }
 
     @Override
-    public void powerUp(Bomber bomber) {
+    public void function(Bomber bomber) {
         bomber.setSpeed(bomber.getSpeed() + 1);
-    }
-
-    @Override
-    public void update() {
-
     }
 }

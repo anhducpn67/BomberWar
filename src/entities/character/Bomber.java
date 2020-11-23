@@ -29,22 +29,22 @@ public class Bomber extends Character {
     public void checkCollision() {
         for (Character character: gameMap.characters) {
             if (this.isCollision(character) && character instanceof Enemy) {
-                destroy();
+                boom();
             }
         }
         for (Item item: gameMap.items) {
             if (this.isCollision(item)) {
-                item.powerUp(this);
+                item.function(this);
                 item.destroy();
             }
         }
         super.checkCollision();
-        if (!isMovable) {
-            for (int i = -4; i <= 4; i++) {
+        if (isCollision) {
+            for (int i = -4 - speed; i <= 4 + speed; i++) {
                 this.pixelX += i * dx[direction];
                 this.pixelY += i * dy[direction];
                 super.checkCollision();
-                if (isMovable) {
+                if (!isCollision) {
                     break;
                 } else {
                     this.pixelX -= i * dx[direction];
@@ -57,12 +57,12 @@ public class Bomber extends Character {
     //TODO: Smoother Move
     @Override
     public void smootherMove() {
-        mapX = pixelX / Sprite.SCALED_SIZE;
-        mapY = pixelY / Sprite.SCALED_SIZE;
+        tileX = pixelX / Sprite.SCALED_SIZE;
+        tileY = pixelY / Sprite.SCALED_SIZE;
     }
 
     @Override
-    public void handleKeyInput() {
+    public void getDirection() {
         this.setVelocity(0, 0);
         if (KeyInput.keyInput.get("LEFT")) {
             this.setVelocity(-defaultVelocity,0);
@@ -94,7 +94,7 @@ public class Bomber extends Character {
         if (gameMap.bombs.size() == maxBombs) {
             return;
         }
-        Bomb bomb = new Bomb(this.mapX, this.mapY, Sprite.bomb);
+        Bomb bomb = new Bomb(this.tileX, this.tileY, Sprite.bomb);
         gameMap.bombs.add(bomb);
     }
 

@@ -13,5 +13,6 @@ public class Bomb extends Item {
     @Override
     public void function(Bomber bomber) {
         bomber.maxBombs += 1;
+        destroy();
     }
 }

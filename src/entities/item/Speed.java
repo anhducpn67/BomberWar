@@ -13,5 +13,6 @@ public class Speed extends Item {
     @Override
     public void function(Bomber bomber) {
         bomber.setSpeed(bomber.getSpeed() + 1);
+        destroy();
     }
 }

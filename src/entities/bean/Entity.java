@@ -26,14 +26,6 @@ public abstract class Entity {
         this.img = sprite.getFxImage();
     }
 
-    public int getPixelX() {
-        return pixelX;
-    }
-
-    public int getPixelY() {
-        return pixelY;
-    }
-
     public Rectangle2D getBoundary() {
         return new Rectangle2D(pixelX, pixelY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }

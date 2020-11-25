@@ -1,5 +1,7 @@
 package entities.item;
 
+import entities.bean.Character;
+import entities.bean.Enemy;
 import entities.bean.Item;
 import entities.character.Bomber;
 import graphics.Sprite;
@@ -12,6 +14,19 @@ public class Portal extends Item {
 
     @Override
     public void function(Bomber bomber) {
-        gameMap.nextLevel();
+        if (countEnemies() == 0) {
+            gameMap.nextLevel();
+            destroy();
+        }
+    }
+
+    private int countEnemies() {
+        int cntEnemies = 0;
+        for (Character character: gameMap.characters) {
+            if (character instanceof Enemy) {
+                cntEnemies++;
+            }
+        }
+        return cntEnemies;
     }
 }

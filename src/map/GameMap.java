@@ -30,7 +30,7 @@ public class GameMap {
     public Entity[][] tiles;
     public ArrayList<Character> characters;
     public ArrayList<Item> items;
-    public Bomber bomber;
+    public Bomber player_1;
     public ArrayList<Bomb> bombs;
     public int level = 0;
 
@@ -70,7 +70,7 @@ public class GameMap {
                 if (c == 'p') {
                     Bomber bomberman = new Bomber(j, i, 0, 0, Sprite.player_right);
                     characters.add(bomberman);
-                    bomber = bomberman;
+                    player_1 = bomberman;
                 }
                 if (c == '1') {
                     Character balloon = new Balloon(j, i, 0, 0, Sprite.balloon_right1);

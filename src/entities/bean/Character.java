@@ -11,7 +11,7 @@ public abstract class Character extends AnimateEntity implements Movable {
     protected int velocityX;
     protected int velocityY;
     protected boolean isStand;
-    protected int speed = 2;
+    protected int speed = 1;
     protected boolean isCollision;
 
     public Character(int x, int y, int velocityX, int velocityY, Sprite sprite) {

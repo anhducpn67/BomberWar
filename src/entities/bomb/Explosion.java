@@ -56,8 +56,8 @@ public class Explosion extends AnimateEntity {
             }
         }
         for (Bomb bomb: gameMap.bombs) {
-            if (this.isCollision(bomb)) {
-               // bomb.boom();
+            if (this.isCollision(bomb) && !bomb.isExploded) {
+                bomb.ticTac = 1;
             }
         }
     }

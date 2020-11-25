@@ -10,7 +10,8 @@ import input.KeyInput;
 public class Bomber extends Character {
 
     public int maxBombs = 1;
-    private int direction;
+    public  int lengthBomb = 1;
+    private int direction = 2;
     private final int[] dx = new int[]{1, 0, 0, 1};
     private final int[] dy = new int[]{0, 1, 1, 0};
 
@@ -22,7 +23,6 @@ public class Bomber extends Character {
         animatedSprites.put("DOWN", new Sprite[]{Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2});
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3});
         currentAnimate = animatedSprites.get("RIGHT");
-        direction = 2;
     }
 
     @Override
@@ -35,7 +35,6 @@ public class Bomber extends Character {
         for (Item item: gameMap.items) {
             if (this.isCollision(item)) {
                 item.function(this);
-                item.destroy();
             }
         }
         super.checkCollision();

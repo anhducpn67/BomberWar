@@ -4,7 +4,7 @@ import entities.bean.AnimateEntity;
 import entities.bean.Entity;
 import entities.still.Brick;
 import entities.still.Wall;
-import graphics.Sprite;
+import sprite.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Bomb extends AnimateEntity {
@@ -65,7 +65,7 @@ public class Bomb extends AnimateEntity {
 
     @Override
     public void update() {
-        updateAnimated();
+        updateAnimation();
         ticTac -= 1;
         if (ticTac == 0) {
             isExploded = true;

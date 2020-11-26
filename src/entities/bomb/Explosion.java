@@ -5,7 +5,7 @@ import entities.bean.Character;
 import entities.bean.Entity;
 import entities.bean.Item;
 import entities.still.Brick;
-import graphics.Sprite;
+import sprite.Sprite;
 
 public class Explosion extends AnimateEntity {
 
@@ -36,7 +36,7 @@ public class Explosion extends AnimateEntity {
 
     @Override
     public void update() {
-        updateAnimated();
+        updateAnimation();
         delete();
     }
 
@@ -51,7 +51,7 @@ public class Explosion extends AnimateEntity {
             }
         }
         for (Item item: gameMap.items) {
-            if (this.isCollision(item)) {
+            if (this.isCollision(item) && item.isDestroyable) {
                 item.destroy();
             }
         }

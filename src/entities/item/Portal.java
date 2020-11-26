@@ -4,7 +4,7 @@ import entities.bean.Character;
 import entities.bean.Enemy;
 import entities.bean.Item;
 import entities.character.Bomber;
-import graphics.Sprite;
+import sprite.Sprite;
 
 public class Portal extends Item {
 
@@ -18,6 +18,12 @@ public class Portal extends Item {
             gameMap.nextLevel();
             destroy();
         }
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        isDestroyable = false;
     }
 
     private int countEnemies() {

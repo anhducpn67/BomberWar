@@ -5,7 +5,7 @@ import entities.bean.Enemy;
 import entities.bean.Entity;
 import entities.bean.Item;
 import entities.bomb.Bomb;
-import graphics.Sprite;
+import sprite.Sprite;
 import input.KeyInput;
 import javafx.geometry.Rectangle2D;
 
@@ -17,14 +17,15 @@ public class Bomber extends Character {
     private final int[] dx = new int[]{1, 0, 0, 1};
     private final int[] dy = new int[]{0, 1, 1, 0};
 
-    public Bomber(int x, int y, int velocityX, int velocityY, Sprite sprite) {
-        super( x, y, velocityX, velocityY, sprite);
+    public Bomber(int x, int y, Sprite sprite) {
+        super( x, y, sprite);
         animatedSprites.put("LEFT", new Sprite[]{Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2});
         animatedSprites.put("RIGHT", new Sprite[]{Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2});
         animatedSprites.put("UP", new Sprite[]{Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2});
         animatedSprites.put("DOWN", new Sprite[]{Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2});
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3});
         currentAnimate = animatedSprites.get("RIGHT");
+        gameMap.player_1 = this;
     }
 
     public boolean isCollision2(Entity other) {

@@ -1,18 +1,20 @@
 package entities.bean;
 
 import entities.character.Bomber;
+import entities.still.Brick;
 import entities.still.Grass;
-import graphics.Sprite;
+import sprite.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Item extends Entity {
 
-    private boolean isHidden;
+    private boolean isHidden = true;
 
     public Item(int x, int y, Sprite sprite) {
         super(x, y, sprite);
         isDestroyable = true;
-        isHidden = true;
+        gameMap.tiles[x][y] = new Brick(x, y, Sprite.brick);
+        gameMap.items.add(this);
     }
 
     @Override

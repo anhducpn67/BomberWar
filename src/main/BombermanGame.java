@@ -1,6 +1,6 @@
-package entities;
+package main;
 
-import graphics.Sprite;
+import sprite.Sprite;
 import input.KeyInput;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;

@@ -1,6 +1,6 @@
 package entities.bean;
 
-import graphics.Sprite;
+import sprite.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

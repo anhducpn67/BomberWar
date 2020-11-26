@@ -2,23 +2,21 @@ package entities.bean;
 
 import entities.bomb.Bomb;
 import entities.character.Bomber;
-import entities.character.enemy.Oneal;
 import entities.features.Movable;
-import graphics.Sprite;
+import sprite.Sprite;
 
 public abstract class Character extends AnimateEntity implements Movable {
 
     protected int defaultVelocity = 1;
-    protected int velocityX;
-    protected int velocityY;
+    protected int velocityX = 0;
+    protected int velocityY = 0;
     protected boolean isStand;
     protected int speed = 1;
     public boolean isCollision;
 
-    public Character(int x, int y, int velocityX, int velocityY, Sprite sprite) {
+    public Character(int x, int y, Sprite sprite) {
         super( x, y, sprite);
-        this.velocityX = velocityX;
-        this.velocityY = velocityY;
+        gameMap.characters.add(this);
         isStand = true;
     }
 
@@ -88,7 +86,7 @@ public abstract class Character extends AnimateEntity implements Movable {
             getDirection();
             checkCollision();
             if (!isStand) {
-                updateAnimated();
+                updateAnimation();
             }
             if (!isCollision) {
                 move();

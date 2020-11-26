@@ -2,7 +2,7 @@ package trace;
 
 import entities.bean.Enemy;
 import entities.character.Bomber;
-import graphics.Sprite;
+import sprite.Sprite;
 
 public class DistanceTrace implements TraceStrategy {
 

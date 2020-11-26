@@ -1,21 +1,15 @@
 package map;
 
-import entities.*;
-import entities.bean.Entity;
 import entities.bean.Character;
+import entities.bean.Entity;
 import entities.bean.Item;
-import entities.character.enemy.Balloon;
-import entities.character.Bomber;
 import entities.bomb.Bomb;
-import entities.character.enemy.Oneal;
-import entities.item.Flame;
-import entities.still.Brick;
-import entities.still.Grass;
-import entities.item.Portal;
-import entities.still.Wall;
-import graphics.Sprite;
+import entities.character.Bomber;
+import entities.character.CharacterFactory;
+import entities.item.ItemFactory;
+import entities.still.StillFactory;
 import javafx.scene.canvas.GraphicsContext;
-
+import main.BombermanGame;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -53,54 +47,15 @@ public class GameMap {
 
     public void createMap(String mapPath) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(mapPath));
-        HEIGHT = scanner.nextInt(); WIDTH = scanner.nextInt();
-        scanner.nextLine();
+        HEIGHT = scanner.nextInt(); WIDTH = scanner.nextInt(); scanner.nextLine();
         resetEntities();
         for (int i = 0; i < HEIGHT; i++) {
             String string = scanner.nextLine();
             for (int j = 0; j < WIDTH; j++) {
                 char c = string.charAt(j);
-                Entity object = new Grass(j, i, Sprite.grass);
-                if (c == '#') {
-                    object = new Wall(j, i, Sprite.wall);
-                }
-                if (c == '*') {
-                    object = new Brick(j, i, Sprite.brick);
-                }
-                if (c == 'p') {
-                    Bomber bomberman = new Bomber(j, i, 0, 0, Sprite.player_right);
-                    characters.add(bomberman);
-                    player_1 = bomberman;
-                }
-                if (c == '1') {
-                    Character balloon = new Balloon(j, i, 0, 0, Sprite.balloon_right1);
-                    characters.add(balloon);
-                }
-                if (c == '2') {
-                    Character oneal = new Oneal(j, i, 0, 0, Sprite.oneal_right1);
-                    characters.add(oneal);
-                }
-                if (c == 'f') {
-                    object = new Brick(j, i, Sprite.brick);
-                    Item flame = new Flame(j, i, Sprite.powerUp_flames);
-                    items.add(flame);
-                }
-                if (c == 'b') {
-                    object = new Brick(j, i, Sprite.brick);
-                    Item bomb = new entities.item.Bomb(j, i, Sprite.powerUp_bombs);
-                    items.add(bomb);
-                }
-                if (c == 's') {
-                    object = new Brick(j, i, Sprite.brick);
-                    Item speed = new entities.item.Speed(j, i, Sprite.powerup_speed);
-                    items.add(speed);
-                }
-                if (c == 'x') {
-                    object = new Brick(j, i, Sprite.brick);
-                    Item portal = new Portal(j, i, Sprite.portal);
-                    items.add(portal);
-                }
-                tiles[j][i] = object;
+                StillFactory.getStill(c, i, j);
+                ItemFactory.getItem(c, i, j);
+                CharacterFactory.getCharacter(c, i, j);
             }
         }
     }
@@ -133,7 +88,7 @@ public class GameMap {
 
     public void nextLevel() {
         gameMap.level += 1;
-        String levelPath = String.format("res/levels/Level%d.txt", gameMap.level);
+        String levelPath = String.format("./res/levels/Level%d.txt", gameMap.level);
         try {
             gameMap.createMap(levelPath);
         } catch (FileNotFoundException e) {
@@ -141,5 +96,4 @@ public class GameMap {
         }
         BombermanGame.createStage();
     }
-
 }

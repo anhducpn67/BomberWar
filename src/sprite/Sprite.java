@@ -1,4 +1,4 @@
-package graphics;
+package sprite;
 
 import javafx.scene.image.*;
 

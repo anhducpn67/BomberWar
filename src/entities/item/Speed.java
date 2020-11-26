@@ -2,7 +2,7 @@ package entities.item;
 
 import entities.bean.Item;
 import entities.character.Bomber;
-import graphics.Sprite;
+import sprite.Sprite;
 
 public class Speed extends Item {
 

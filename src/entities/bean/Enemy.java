@@ -1,6 +1,6 @@
 package entities.bean;
 
-import graphics.Sprite;
+import sprite.Sprite;
 import trace.TraceStrategy;
 
 abstract public class Enemy extends Character {
@@ -8,8 +8,8 @@ abstract public class Enemy extends Character {
     public TraceStrategy traceStrategy;
     public int direction;
 
-    public Enemy(int x, int y, int velocityX, int velocityY, Sprite sprite) {
-        super(x, y, velocityX, velocityY, sprite);
+    public Enemy(int x, int y, Sprite sprite) {
+        super(x, y, sprite);
     }
 
     @Override
@@ -31,7 +31,7 @@ abstract public class Enemy extends Character {
             this.setVelocity(0, defaultVelocity);
             currentAnimate = animatedSprites.get("RIGHT");
         }
-        if (direction == 5) {
+        if (direction == 4) {
             this.setVelocity(0, 0);
         }
     }

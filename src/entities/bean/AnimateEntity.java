@@ -1,7 +1,7 @@
 package entities.bean;
 
-import entities.BombermanGame;
-import graphics.Sprite;
+import main.BombermanGame;
+import sprite.Sprite;
 
 import java.util.HashMap;
 
@@ -15,7 +15,7 @@ public abstract class AnimateEntity extends Entity {
         super(x, y, sprite);
     }
 
-    public void updateAnimated() {
+    public void updateAnimation() {
         this.sprite = Sprite.movingSprite(currentAnimate, 3, BombermanGame.time);
         this.img = this.sprite.getFxImage();
     }
@@ -32,7 +32,7 @@ public abstract class AnimateEntity extends Entity {
             final long currentTime = System.nanoTime();
             double timeDuration = (currentTime - timeBoom) / 1000000000.0;
             if (timeDuration <= 0.3) {
-                updateAnimated();
+                updateAnimation();
             } else {
                 delete();
             }

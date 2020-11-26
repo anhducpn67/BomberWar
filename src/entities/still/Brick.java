@@ -1,7 +1,7 @@
 package entities.still;
 
 import entities.bean.AnimateEntity;
-import graphics.Sprite;
+import sprite.Sprite;
 
 public class Brick extends AnimateEntity {
 
@@ -10,6 +10,7 @@ public class Brick extends AnimateEntity {
         canBlock = true;
         isDestroyable = true;
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.brick_exploded2});
+        gameMap.tiles[x][y] = this;
     }
 
     @Override

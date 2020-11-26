@@ -10,7 +10,7 @@ public abstract class Entity {
 
     public GameMap gameMap = GameMap.getGameMap();
 
-    protected int pixelX, pixelY;
+    public int pixelX, pixelY;
     protected int tileX, tileY;
     protected Sprite sprite;
     protected Image img;

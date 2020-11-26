@@ -1,7 +1,8 @@
-package entities.character;
+package entities.character.enemy;
 
 import entities.bean.Enemy;
 import graphics.Sprite;
+import trace.DistanceTrace;
 
 public class Oneal extends Enemy {
 
@@ -11,6 +12,7 @@ public class Oneal extends Enemy {
         animatedSprites.put("RIGHT", new Sprite[]{Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3});
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.oneal_dead, Sprite.oneal_dead, Sprite.oneal_dead});
         currentAnimate = animatedSprites.get("RIGHT");
+        traceStrategy = new DistanceTrace();
     }
 
     @Override

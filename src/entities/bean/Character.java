@@ -2,6 +2,7 @@ package entities.bean;
 
 import entities.bomb.Bomb;
 import entities.character.Bomber;
+import entities.character.enemy.Oneal;
 import entities.features.Movable;
 import graphics.Sprite;
 
@@ -12,7 +13,7 @@ public abstract class Character extends AnimateEntity implements Movable {
     protected int velocityY;
     protected boolean isStand;
     protected int speed = 1;
-    protected boolean isCollision;
+    public boolean isCollision;
 
     public Character(int x, int y, int velocityX, int velocityY, Sprite sprite) {
         super( x, y, sprite);
@@ -77,11 +78,6 @@ public abstract class Character extends AnimateEntity implements Movable {
         pixelY -= this.velocityY;
     }
 
-    public void smootherMove() {
-        tileX = pixelX / Sprite.SCALED_SIZE;
-        tileY = pixelY / Sprite.SCALED_SIZE;
-    }
-
     @Override
     public void update() {
         if (isDestroyed) {
@@ -96,7 +92,6 @@ public abstract class Character extends AnimateEntity implements Movable {
             }
             if (!isCollision) {
                 move();
-                smootherMove();
             }
         }
     }

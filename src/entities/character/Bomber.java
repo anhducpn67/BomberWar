@@ -2,10 +2,12 @@ package entities.character;
 
 import entities.bean.Character;
 import entities.bean.Enemy;
+import entities.bean.Entity;
 import entities.bean.Item;
 import entities.bomb.Bomb;
 import graphics.Sprite;
 import input.KeyInput;
+import javafx.geometry.Rectangle2D;
 
 public class Bomber extends Character {
 
@@ -25,15 +27,20 @@ public class Bomber extends Character {
         currentAnimate = animatedSprites.get("RIGHT");
     }
 
+    public boolean isCollision2(Entity other) {
+        Rectangle2D rectangle2D = new Rectangle2D(pixelX + 10, pixelY + 10, Sprite.SCALED_SIZE - 25, Sprite.SCALED_SIZE - 25);
+        return rectangle2D.intersects(other.getBoundary());
+    }
+
     @Override
     public void checkCollision() {
         for (Character character: gameMap.characters) {
-            if (this.isCollision(character) && character instanceof Enemy) {
+            if (this.isCollision2(character) && character instanceof Enemy) {
                 boom();
             }
         }
         for (Item item: gameMap.items) {
-            if (this.isCollision(item)) {
+            if (this.isCollision2(item)) {
                 item.function(this);
             }
         }
@@ -51,11 +58,6 @@ public class Bomber extends Character {
                 }
             }
         }
-    }
-
-    //TODO: Smoother Move
-    @Override
-    public void smootherMove() {
         tileX = pixelX / Sprite.SCALED_SIZE;
         tileY = pixelY / Sprite.SCALED_SIZE;
     }

@@ -1,7 +1,8 @@
-package entities.character;
+package entities.character.enemy;
 
 import entities.bean.Enemy;
 import graphics.Sprite;
+import trace.RandomTrace;
 
 public class Balloon extends Enemy {
 
@@ -11,6 +12,7 @@ public class Balloon extends Enemy {
         animatedSprites.put("RIGHT", new Sprite[]{Sprite.balloon_right1, Sprite.balloon_right2, Sprite.balloon_right3});
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.balloon_dead, Sprite.balloon_dead, Sprite.balloon_dead});
         currentAnimate = animatedSprites.get("RIGHT");
+        traceStrategy = new RandomTrace();
     }
 
     @Override

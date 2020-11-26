@@ -1,12 +1,12 @@
 package entities.bean;
 
 import graphics.Sprite;
-
-import java.util.Random;
+import trace.TraceStrategy;
 
 abstract public class Enemy extends Character {
 
-    private int direction;
+    public TraceStrategy traceStrategy;
+    public int direction;
 
     public Enemy(int x, int y, int velocityX, int velocityY, Sprite sprite) {
         super(x, y, velocityX, velocityY, sprite);
@@ -14,10 +14,7 @@ abstract public class Enemy extends Character {
 
     @Override
     public void getDirection() {
-        if (isCollision) {
-            Random rand = new Random();
-            direction = rand.nextInt(4);
-        }
+        direction =  traceStrategy.trace(this, gameMap.player_1);
         if (direction == 0) {
             this.setVelocity(-defaultVelocity,0);
             currentAnimate = animatedSprites.get("LEFT");
@@ -33,6 +30,9 @@ abstract public class Enemy extends Character {
         if (direction == 3) {
             this.setVelocity(0, defaultVelocity);
             currentAnimate = animatedSprites.get("RIGHT");
+        }
+        if (direction == 5) {
+            this.setVelocity(0, 0);
         }
     }
 }

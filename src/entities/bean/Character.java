@@ -13,6 +13,7 @@ public abstract class Character extends AnimateEntity implements Movable {
     protected boolean isStand;
     protected int speed = 1;
     public boolean isCollision;
+    public int direction = 2;
 
     public Character(int x, int y, Sprite sprite) {
         super( x, y, sprite);
@@ -92,11 +93,6 @@ public abstract class Character extends AnimateEntity implements Movable {
                 move();
             }
         }
-    }
-
-    @Override
-    public void delete() {
-        gameMap.characters.remove(this);
     }
 
     abstract public void getDirection();

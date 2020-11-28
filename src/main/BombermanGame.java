@@ -1,6 +1,5 @@
 package main;
 
-import sprite.Sprite;
 import input.KeyInput;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -10,6 +9,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import map.GameMap;
+import sprite.Sprite;
 
 public class BombermanGame extends Application {
 

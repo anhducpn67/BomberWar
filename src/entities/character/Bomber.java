@@ -5,6 +5,8 @@ import entities.bean.Enemy;
 import entities.bean.Entity;
 import entities.bean.Item;
 import entities.bomb.Bomb;
+import entities.item.Portal;
+import input.Sound;
 import sprite.Sprite;
 import input.KeyInput;
 import javafx.geometry.Rectangle2D;
@@ -13,7 +15,6 @@ public class Bomber extends Character {
 
     public int maxBombs = 1;
     public  int lengthBomb = 1;
-    private int direction = 2;
     private final int[] dx = new int[]{1, 0, 0, 1};
     private final int[] dy = new int[]{0, 1, 1, 0};
 
@@ -42,6 +43,9 @@ public class Bomber extends Character {
         }
         for (Item item: gameMap.items) {
             if (this.isCollision2(item)) {
+                if (!(item instanceof Portal)) {
+                    Sound.playSound("PowerUp");
+                }
                 item.function(this);
             }
         }
@@ -87,21 +91,22 @@ public class Bomber extends Character {
             direction = 0;
         }
         if (KeyInput.keyInput.get("SPACE")) {
-            createBomb();
+            placeBomb();
             KeyInput.keyInput.put("SPACE", false);
         }
     }
 
-    private void createBomb() {
+    private void placeBomb() {
         if (gameMap.bombs.size() == maxBombs) {
             return;
         }
+        Sound.playSound("PlaceBomb");
         Bomb bomb = new Bomb(this.tileX, this.tileY, Sprite.bomb);
         gameMap.bombs.add(bomb);
     }
 
     @Override
     public void delete() {
-        super.delete();
+        Sound.playSound("Die");
     }
 }

@@ -4,6 +4,7 @@ import entities.bean.AnimateEntity;
 import entities.bean.Entity;
 import entities.still.Brick;
 import entities.still.Wall;
+import input.Sound;
 import sprite.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -61,6 +62,7 @@ public class Bomb extends AnimateEntity {
                 }
             }
         }
+        Sound.playSound("Explosion");
     }
 
     @Override

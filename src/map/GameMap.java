@@ -8,8 +8,11 @@ import entities.character.Bomber;
 import entities.character.CharacterFactory;
 import entities.item.ItemFactory;
 import entities.still.StillFactory;
+import input.Sound;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.AudioClip;
 import main.BombermanGame;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -27,6 +30,12 @@ public class GameMap {
     public Bomber player_1;
     public ArrayList<Bomb> bombs;
     public int level = 0;
+    public static AudioClip backgroundSound = Sound.playSound("Area1");
+    public static AudioClip stageCleared = Sound.playSound("StageCleared");
+    static {
+        stageCleared.stop();
+        backgroundSound.stop();
+    }
 
     private GameMap() {
     }
@@ -88,6 +97,16 @@ public class GameMap {
 
     public void nextLevel() {
         gameMap.level += 1;
+        if (stageCleared.isPlaying()) {
+            stageCleared.stop();
+        }
+        if (gameMap.level % 2 == 1) {
+            backgroundSound.stop();
+            backgroundSound = Sound.playSound("Area1");
+        } else {
+            backgroundSound.stop();
+            backgroundSound = Sound.playSound("Area2");
+        }
         String levelPath = String.format("./res/levels/Level%d.txt", gameMap.level);
         try {
             gameMap.createMap(levelPath);

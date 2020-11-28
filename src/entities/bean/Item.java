@@ -3,6 +3,7 @@ package entities.bean;
 import entities.character.Bomber;
 import entities.still.Brick;
 import entities.still.Grass;
+import input.Sound;
 import sprite.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -27,6 +28,7 @@ public abstract class Item extends Entity {
     public void destroy() {
         if (isHidden) {
             isHidden = false;
+            Sound.playSound("ItemAppears");
             return;
         }
         gameMap.items.remove(this);

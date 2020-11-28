@@ -1,6 +1,7 @@
 package entities.character.enemy;
 
 import entities.bean.Enemy;
+import input.Sound;
 import sprite.Sprite;
 import trace.RandomTrace;
 
@@ -18,5 +19,6 @@ public class Balloon extends Enemy {
     @Override
     public void delete() {
         super.delete();
+        Sound.playSound("EnemyDie");
     }
 }

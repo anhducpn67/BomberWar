@@ -21,6 +21,10 @@ public class ItemFactory {
             case 'x':
                 new Portal(j, i, Sprite.portal);
                 break;
+            case 'w':
+                new WallPass(j, i, Sprite.powerup_wallpass);
+            case 'l':
+                new BombPass(j, i, Sprite.powerup_bombpass);
         }
     }
 }

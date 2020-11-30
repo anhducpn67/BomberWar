@@ -11,7 +11,7 @@ public abstract class Entity {
     public GameMap gameMap = GameMap.getGameMap();
 
     public int pixelX, pixelY;
-    protected int tileX, tileY;
+    public int tileX, tileY;
     protected Sprite sprite;
     protected Image img;
     public boolean isDestroyable = false;

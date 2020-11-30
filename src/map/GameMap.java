@@ -10,7 +10,6 @@ import entities.item.ItemFactory;
 import entities.still.StillFactory;
 import input.Sound;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.media.AudioClip;
 import main.BombermanGame;
 
 import java.io.File;
@@ -27,15 +26,10 @@ public class GameMap {
     public Entity[][] tiles;
     public ArrayList<Character> characters;
     public ArrayList<Item> items;
-    public Bomber player_1;
+    public static Bomber player_1;
     public ArrayList<Bomb> bombs;
-    public int level = 0;
-    public static AudioClip backgroundSound = Sound.playSound("Area1");
-    public static AudioClip stageCleared = Sound.playSound("StageCleared");
-    static {
-        stageCleared.stop();
-        backgroundSound.stop();
-    }
+    public static int stage = 0;
+    public static int score = 0;
 
     private GameMap() {
     }
@@ -96,18 +90,18 @@ public class GameMap {
     }
 
     public void nextLevel() {
-        gameMap.level += 1;
-        if (stageCleared.isPlaying()) {
-            stageCleared.stop();
+        GameMap.stage += 1;
+        if (Sound.stageCleared.isPlaying()) {
+            Sound.stageCleared.stop();
         }
-        if (gameMap.level % 2 == 1) {
-            backgroundSound.stop();
-            backgroundSound = Sound.playSound("Area1");
+        if (GameMap.stage % 2 == 1) {
+            Sound.backgroundSound.stop();
+            Sound.backgroundSound = Sound.playSound("Area1");
         } else {
-            backgroundSound.stop();
-            backgroundSound = Sound.playSound("Area2");
+            Sound.backgroundSound.stop();
+            Sound.backgroundSound = Sound.playSound("Area2");
         }
-        String levelPath = String.format("./res/levels/Level%d.txt", gameMap.level);
+        String levelPath = String.format("./res/levels/Level%d.txt", GameMap.stage);
         try {
             gameMap.createMap(levelPath);
         } catch (FileNotFoundException e) {

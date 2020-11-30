@@ -8,6 +8,13 @@ import javafx.stage.Stage;
 import java.io.File;
 
 public class Sound extends Application {
+    public static AudioClip backgroundSound = Sound.playSound("Area1");
+    public static AudioClip stageCleared = Sound.playSound("StageCleared");
+    static {
+        stageCleared.stop();
+        backgroundSound.stop();
+    }
+
     @Override
     public void start (Stage primaryStage) {
     }

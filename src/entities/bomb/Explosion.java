@@ -23,6 +23,7 @@ public class Explosion extends AnimateEntity {
                 Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2});
         animatedSprites.put("DOWN_LAST", new Sprite[]{Sprite.explosion_vertical_down_last,
                 Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2});
+        animatedSprites.put("CENTER", new Sprite[]{Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2});
         currentAnimate = animatedSprites.get(animate);
     }
 

@@ -16,6 +16,7 @@ public class Portal extends Item {
     public void function(Bomber bomber) {
         if (countEnemies() == 0) {
             gameMap.nextLevel();
+            bomber.life += 1;
             destroy();
         }
     }

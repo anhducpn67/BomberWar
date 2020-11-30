@@ -14,7 +14,8 @@ import javafx.geometry.Rectangle2D;
 public class Bomber extends Character {
 
     public int maxBombs = 1;
-    public  int lengthBomb = 1;
+    public int lengthBomb = 1;
+    public int life = 3;
     private final int[] dx = new int[]{1, 0, 0, 1};
     private final int[] dy = new int[]{0, 1, 1, 0};
 
@@ -26,7 +27,6 @@ public class Bomber extends Character {
         animatedSprites.put("DOWN", new Sprite[]{Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2});
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3});
         currentAnimate = animatedSprites.get("RIGHT");
-        gameMap.player_1 = this;
     }
 
     public boolean isCollision2(Entity other) {
@@ -42,7 +42,7 @@ public class Bomber extends Character {
             }
         }
         for (Item item: gameMap.items) {
-            if (this.isCollision2(item)) {
+            if (this.isCollision2(item) && !item.isHidden) {
                 if (!(item instanceof Portal)) {
                     Sound.playSound("PowerUp");
                 }

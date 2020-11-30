@@ -1,5 +1,6 @@
 package entities.bean;
 
+import input.Sound;
 import map.GameMap;
 import sprite.Sprite;
 import trace.TraceStrategy;
@@ -7,6 +8,7 @@ import trace.TraceStrategy;
 abstract public class Enemy extends Character {
 
     public TraceStrategy traceStrategy;
+    public int score;
 
     public Enemy(int x, int y, Sprite sprite) {
         super(x, y, sprite);
@@ -40,9 +42,11 @@ abstract public class Enemy extends Character {
     public void delete() {
         gameMap.characters.remove(this);
         if (gameMap.characters.size() == 1) {
-            GameMap.backgroundSound.stop();
-            GameMap.stageCleared.setCycleCount(999);
-            GameMap.stageCleared.play();
+            Sound.backgroundSound.stop();
+            Sound.stageCleared.setCycleCount(999);
+            Sound.stageCleared.play();
         }
+        GameMap.score += score;
+        Sound.playSound("EnemyDie");
     }
 }

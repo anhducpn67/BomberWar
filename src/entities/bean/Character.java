@@ -3,6 +3,7 @@ package entities.bean;
 import entities.bomb.Bomb;
 import entities.character.Bomber;
 import entities.features.Movable;
+import entities.still.Brick;
 import sprite.Sprite;
 
 public abstract class Character extends AnimateEntity implements Movable {
@@ -14,6 +15,8 @@ public abstract class Character extends AnimateEntity implements Movable {
     protected int speed = 1;
     public boolean isCollision;
     public int direction = 2;
+    public boolean isWallPass = false;
+    public boolean isBombPass = false;
 
     public Character(int x, int y, Sprite sprite) {
         super( x, y, sprite);
@@ -53,6 +56,9 @@ public abstract class Character extends AnimateEntity implements Movable {
                 if (bomb.isDestroyed) {
                     this.boom();
                 } else {
+                    if (isBombPass) {
+                        continue;
+                    }
                     isCollision = true;
                 }
                 if (this instanceof Bomber && !bomb.canBlock) {
@@ -67,6 +73,9 @@ public abstract class Character extends AnimateEntity implements Movable {
         for (int i = 0; i < gameMap.HEIGHT; i++) {
             for (int j = 0; j < gameMap.WIDTH; j++) {
                 Entity entity = gameMap.tiles[j][i];
+                if (entity instanceof Brick && isWallPass) {
+                    continue;
+                }
                 if (entity.canBlock && this.isCollision(entity)) {
                     isCollision = true;
                 }

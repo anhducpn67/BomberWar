@@ -1,8 +1,8 @@
 package entities.character;
 
-import entities.bean.Character;
 import entities.character.enemy.Balloon;
 import entities.character.enemy.Oneal;
+import map.GameMap;
 import sprite.Sprite;
 
 public class CharacterFactory {
@@ -13,7 +13,15 @@ public class CharacterFactory {
     public static void getCharacter(char ch, int i, int j) {
         switch (ch) {
             case 'p':
-                new Bomber(j, i, Sprite.player_right);
+                if (GameMap.player_1 == null) {
+                    GameMap.player_1 = new Bomber(j, i, Sprite.player_right);
+                } else {
+                    GameMap.player_1.tileX = j;
+                    GameMap.player_1.tileY = i;
+                    GameMap.player_1.pixelX = j * Sprite.SCALED_SIZE;
+                    GameMap.player_1.pixelY = i * Sprite.SCALED_SIZE;
+                    GameMap.getGameMap().characters.add(GameMap.player_1);
+                }
                 break;
             case '1':
                 new Balloon(j, i, Sprite.balloon_right1);

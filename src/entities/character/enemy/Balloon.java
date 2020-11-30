@@ -1,7 +1,6 @@
 package entities.character.enemy;
 
 import entities.bean.Enemy;
-import input.Sound;
 import sprite.Sprite;
 import trace.RandomTrace;
 
@@ -14,11 +13,6 @@ public class Balloon extends Enemy {
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.balloon_dead, Sprite.balloon_dead, Sprite.balloon_dead});
         currentAnimate = animatedSprites.get("RIGHT");
         traceStrategy = new RandomTrace();
-    }
-
-    @Override
-    public void delete() {
-        super.delete();
-        Sound.playSound("EnemyDie");
+        score = 200;
     }
 }

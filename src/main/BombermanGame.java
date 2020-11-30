@@ -3,11 +3,13 @@ package main;
 import input.KeyInput;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import map.Board;
 import map.GameMap;
 import sprite.Sprite;
 
@@ -35,6 +37,7 @@ public class BombermanGame extends Application {
                 time = (int) ((currentNanoTime - startNanoTime) / 60000000) + 1;
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 gameMap.updateMap();
+                Board.updateBoard();
                 gameMap.renderMap(gc);
             }
         }.start();
@@ -43,8 +46,9 @@ public class BombermanGame extends Application {
     public static void createStage() {
         canvas = new Canvas(Sprite.SCALED_SIZE * gameMap.WIDTH, Sprite.SCALED_SIZE * gameMap.HEIGHT);
         gc = canvas.getGraphicsContext2D();
-        Group root = new Group();
-        root.getChildren().add(canvas);
+        HBox hBox = new HBox(Board.stage, Board.left, Board.score, Board.time);
+        hBox.setSpacing(100.0);
+        VBox root = new VBox(hBox, canvas);
         Scene scene = new Scene(root);
         scene.setOnKeyPressed(
                 e -> {

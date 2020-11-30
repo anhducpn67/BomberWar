@@ -1,7 +1,6 @@
 package entities.character.enemy;
 
 import entities.bean.Enemy;
-import input.Sound;
 import sprite.Sprite;
 import trace.DistanceTrace;
 
@@ -14,11 +13,6 @@ public class Oneal extends Enemy {
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.oneal_dead, Sprite.oneal_dead, Sprite.oneal_dead});
         currentAnimate = animatedSprites.get("RIGHT");
         traceStrategy = new DistanceTrace();
-    }
-
-    @Override
-    public void delete() {
-        super.delete();
-        Sound.playSound("EnemyDie2");
+        score = 300;
     }
 }

@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Item extends Entity {
 
-    private boolean isHidden = true;
+    public boolean isHidden = true;
 
     public Item(int x, int y, Sprite sprite) {
         super(x, y, sprite);

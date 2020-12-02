@@ -1,6 +1,8 @@
 package entities.character;
 
 import entities.character.enemy.Balloon;
+import entities.character.enemy.Kondoria;
+import entities.character.enemy.Minvo;
 import entities.character.enemy.Oneal;
 import map.GameMap;
 import sprite.Sprite;
@@ -29,6 +31,11 @@ public class CharacterFactory {
             case '2':
                 new Oneal(j, i, Sprite.oneal_right1);
                 break;
+            case '3':
+                new Minvo(j, i, Sprite.minvo_right1);
+                break;
+            case '4':
+                new Kondoria(j, i, Sprite.kondoria_right1);
         }
     }
 }

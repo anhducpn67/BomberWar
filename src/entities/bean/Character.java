@@ -17,6 +17,7 @@ public abstract class Character extends AnimateEntity implements Movable {
     public int direction = 2;
     public boolean isWallPass = false;
     public boolean isBombPass = false;
+    public boolean isFlamePass = false;
 
     public Character(int x, int y, Sprite sprite) {
         super( x, y, sprite);
@@ -53,7 +54,7 @@ public abstract class Character extends AnimateEntity implements Movable {
         pixelY += this.velocityY;
         for (Bomb bomb: gameMap.bombs) {
             if (this.isCollision(bomb)) {
-                if (bomb.isDestroyed) {
+                if (bomb.isDestroyed && !this.isFlamePass) {
                     this.boom();
                 } else {
                     if (isBombPass) {

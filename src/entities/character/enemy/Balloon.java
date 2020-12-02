@@ -12,6 +12,10 @@ public class Balloon extends Enemy {
         animatedSprites.put("RIGHT", new Sprite[]{Sprite.balloon_right1, Sprite.balloon_right2, Sprite.balloon_right3});
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.balloon_dead, Sprite.balloon_dead, Sprite.balloon_dead});
         currentAnimate = animatedSprites.get("RIGHT");
+    }
+
+    @Override
+    public void setSpeciality() {
         traceStrategy = new RandomTrace();
         score = 200;
     }

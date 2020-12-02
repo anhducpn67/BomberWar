@@ -47,7 +47,7 @@ public class Explosion extends AnimateEntity {
             ((Brick) entity).delete();
         }
         for (Character character: gameMap.characters) {
-            if (this.isCollision(character)) {
+            if (this.isCollision(character) && !character.isFlamePass) {
                 character.boom();
             }
         }

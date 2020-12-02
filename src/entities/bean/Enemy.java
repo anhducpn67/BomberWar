@@ -12,11 +12,12 @@ abstract public class Enemy extends Character {
 
     public Enemy(int x, int y, Sprite sprite) {
         super(x, y, sprite);
+        setSpeciality();
     }
 
     @Override
     public void getDirection() {
-        direction =  traceStrategy.trace(this, gameMap.player_1);
+        direction =  traceStrategy.trace(this, GameMap.player_1);
         if (direction == 0) {
             this.setVelocity(-defaultVelocity,0);
             currentAnimate = animatedSprites.get("LEFT");
@@ -49,4 +50,6 @@ abstract public class Enemy extends Character {
         GameMap.score += score;
         Sound.playSound("EnemyDie");
     }
+
+    abstract public void setSpeciality();
 }

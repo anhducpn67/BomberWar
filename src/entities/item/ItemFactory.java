@@ -16,15 +16,20 @@ public class ItemFactory {
                 new Bomb(j, i, Sprite.powerUp_bombs);
                 break;
             case 's':
-                new Speed(j, i, Sprite.powerup_speed);
+                new Speed(j, i, Sprite.powerUp_speed);
                 break;
             case 'x':
                 new Portal(j, i, Sprite.portal);
                 break;
             case 'w':
-                new WallPass(j, i, Sprite.powerup_wallpass);
+                new WallPass(j, i, Sprite.powerUp_wallPass);
+                break;
             case 'l':
-                new BombPass(j, i, Sprite.powerup_bombpass);
+                new BombPass(j, i, Sprite.powerUp_bombPass);
+                break;
+            case 'k':
+                new FlamePass(j, i, Sprite.powerUp_flamePass);
+                break;
         }
     }
 }

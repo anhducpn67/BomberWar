@@ -9,6 +9,7 @@ abstract public class Enemy extends Character {
 
     public TraceStrategy traceStrategy;
     public int score;
+    public int life = 1;
 
     public Enemy(int x, int y, Sprite sprite) {
         super(x, y, sprite);
@@ -28,11 +29,11 @@ abstract public class Enemy extends Character {
         }
         if (direction == 2) {
             this.setVelocity(0, -defaultVelocity);
-            currentAnimate = animatedSprites.get("LEFT");
+            currentAnimate = animatedSprites.get("UP");
         }
         if (direction == 3) {
             this.setVelocity(0, defaultVelocity);
-            currentAnimate = animatedSprites.get("RIGHT");
+            currentAnimate = animatedSprites.get("DOWN");
         }
         if (direction == 4) {
             this.setVelocity(0, 0);
@@ -41,6 +42,10 @@ abstract public class Enemy extends Character {
 
     @Override
     public void delete() {
+        life--;
+        if (life != 0) {
+            return;
+        }
         gameMap.characters.remove(this);
         if (gameMap.characters.size() == 1) {
             Sound.backgroundSound.stop();

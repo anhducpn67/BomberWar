@@ -11,7 +11,7 @@ public class Sprite {
 	
 	public static final int DEFAULT_SIZE = 16;
 	public static final int SCALED_SIZE = DEFAULT_SIZE * 2;
-    private static final int TRANSPARENT_COLOR = 0xffff00ff;
+    private static final int TRANSPARENT_COLOR = 0xFFFD40FF;
 	public final int SIZE;
 	private int _x, _y;
 	public int[] _pixels;
@@ -82,18 +82,38 @@ public class Sprite {
 	
 	public static Sprite oneal_dead = new Sprite(DEFAULT_SIZE, 11, 3, SpriteSheet.tiles, 16, 16);
 	
-	//Doll
-	public static Sprite doll_left1 = new Sprite(DEFAULT_SIZE, 13, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite doll_left2 = new Sprite(DEFAULT_SIZE, 13, 1, SpriteSheet.tiles, 16, 16);
-	public static Sprite doll_left3 = new Sprite(DEFAULT_SIZE, 13, 2, SpriteSheet.tiles, 16, 16);
-	
-	public static Sprite doll_right1 = new Sprite(DEFAULT_SIZE, 14, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite doll_right2 = new Sprite(DEFAULT_SIZE, 14, 1, SpriteSheet.tiles, 16, 16);
-	public static Sprite doll_right3 = new Sprite(DEFAULT_SIZE, 14, 2, SpriteSheet.tiles, 16, 16);
-	
-	public static Sprite doll_dead = new Sprite(DEFAULT_SIZE, 13, 3, SpriteSheet.tiles, 16, 16);
-	
-	//Minvo
+	//BOSS
+	public static Sprite boss_down1 = new Sprite(DEFAULT_SIZE, 6, 11, SpriteSheet.tiles, 16, 16);
+	public static Sprite boss_down2 = new Sprite(DEFAULT_SIZE, 7, 11, SpriteSheet.tiles, 16, 16);
+	public static Sprite boss_down3 = new Sprite(DEFAULT_SIZE, 6, 11, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite boss_left1 = new Sprite(DEFAULT_SIZE, 8, 11, SpriteSheet.tiles, 16, 16);
+	public static Sprite boss_left2 = new Sprite(DEFAULT_SIZE, 9, 11, SpriteSheet.tiles, 16, 16);
+	public static Sprite boss_left3 = new Sprite(DEFAULT_SIZE, 8, 11, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite boss_right1 = new Sprite(DEFAULT_SIZE, 10, 11, SpriteSheet.tiles, 16, 16);
+	public static Sprite boss_right2 = new Sprite(DEFAULT_SIZE, 11, 11, SpriteSheet.tiles, 16, 16);
+	public static Sprite boss_right3 = new Sprite(DEFAULT_SIZE, 10, 11, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite boss_up1 = new Sprite(DEFAULT_SIZE, 12, 11, SpriteSheet.tiles, 16, 16);
+	public static Sprite boss_up2 = new Sprite(DEFAULT_SIZE, 13, 11, SpriteSheet.tiles, 16, 16);
+	public static Sprite boss_up3 = new Sprite(DEFAULT_SIZE, 12, 11, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite fire_down = new Sprite(DEFAULT_SIZE, 6, 12, SpriteSheet.tiles, 16, 16);
+	public static Sprite fire_right = new Sprite(DEFAULT_SIZE, 7, 12, SpriteSheet.tiles, 16, 16);
+	public static Sprite fire_up = new Sprite(DEFAULT_SIZE, 8, 12, SpriteSheet.tiles, 16, 16);
+	public static Sprite fire_left = new Sprite(DEFAULT_SIZE, 9, 12, SpriteSheet.tiles, 16, 16);
+
+	// GHOST
+	public static Sprite ghost_right1 = new Sprite(DEFAULT_SIZE, 10, 12, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghost_right2 = new Sprite(DEFAULT_SIZE, 11, 12, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghost_right3 = new Sprite(DEFAULT_SIZE, 10, 12, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite ghost_left1 = new Sprite(DEFAULT_SIZE, 12, 12, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghost_left2 = new Sprite(DEFAULT_SIZE, 13, 12, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghost_left3 = new Sprite(DEFAULT_SIZE, 12, 12, SpriteSheet.tiles, 16, 16);
+
+	// MINVO
 	public static Sprite minvo_left1 = new Sprite(DEFAULT_SIZE, 8, 5, SpriteSheet.tiles, 16, 16);
 	public static Sprite minvo_left2 = new Sprite(DEFAULT_SIZE, 8, 6, SpriteSheet.tiles, 16, 16);
 	public static Sprite minvo_left3 = new Sprite(DEFAULT_SIZE, 8, 7, SpriteSheet.tiles, 16, 16);
@@ -104,7 +124,7 @@ public class Sprite {
 	
 	public static Sprite minvo_dead = new Sprite(DEFAULT_SIZE, 8, 8, SpriteSheet.tiles, 16, 16);
 	
-	//Kondoria
+	//KONDORIA
 	public static Sprite kondoria_left1 = new Sprite(DEFAULT_SIZE, 10, 5, SpriteSheet.tiles, 16, 16);
 	public static Sprite kondoria_left2 = new Sprite(DEFAULT_SIZE, 10, 6, SpriteSheet.tiles, 16, 16);
 	public static Sprite kondoria_left3 = new Sprite(DEFAULT_SIZE, 10, 7, SpriteSheet.tiles, 16, 16);
@@ -180,7 +200,6 @@ public class Sprite {
 	public static Sprite powerUp_flames = new Sprite(DEFAULT_SIZE, 1, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerUp_speed = new Sprite(DEFAULT_SIZE, 2, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerUp_wallPass = new Sprite(DEFAULT_SIZE, 3, 10, SpriteSheet.tiles, 16, 16);
-	public static Sprite powerUp_detonator = new Sprite(DEFAULT_SIZE, 4, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerUp_bombPass = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerUp_flamePass = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);
 	
@@ -205,14 +224,6 @@ public class Sprite {
 		Arrays.fill(_pixels, color);
 	}
 
-	public int get_realWidth() {
-		return _realWidth;
-	}
-
-	public int get_realHeight() {
-		return _realHeight;
-	}
-
 	private void load() {
 		for (int y = 0; y < SIZE; y++) {
 			for (int x = 0; x < SIZE; x++) {
@@ -223,14 +234,6 @@ public class Sprite {
 	
 	public static Sprite movingSprite(Sprite[] sprites, int animate, long time) {
 		return sprites[(int) ((time + 3) / 3 % animate)];
-	}
-	
-	public int getSize() {
-		return SIZE;
-	}
-
-	public int getPixel(int i) {
-		return _pixels[i];
 	}
 
 	public Image getFxImage() {

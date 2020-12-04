@@ -108,5 +108,11 @@ public class Bomber extends Character {
     @Override
     public void delete() {
         Sound.playSound("Die");
+        life -= 1;  isDestroyed = false;
+        this.tileX = 1;     this.tileY = 1;
+        this.pixelX = 32;   this.pixelY = 32;
+        if (life == 0) {
+            System.exit(0);
+        }
     }
 }

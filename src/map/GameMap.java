@@ -96,7 +96,7 @@ public class GameMap {
         }
         if (GameMap.stage % 2 == 1) {
             Sound.backgroundSound.stop();
-            Sound.backgroundSound = Sound.playSound("Area1");
+            Sound.backgroundSound = Sound.playSound("AreaBoss");
         } else {
             Sound.backgroundSound.stop();
             Sound.backgroundSound = Sound.playSound("Area2");

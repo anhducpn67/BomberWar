@@ -1,9 +1,6 @@
 package entities.character;
 
-import entities.character.enemy.Balloon;
-import entities.character.enemy.Kondoria;
-import entities.character.enemy.Minvo;
-import entities.character.enemy.Oneal;
+import entities.character.enemy.*;
 import map.GameMap;
 import sprite.Sprite;
 
@@ -36,6 +33,13 @@ public class CharacterFactory {
                 break;
             case '4':
                 new Kondoria(j, i, Sprite.kondoria_right1);
+                break;
+            case '5':
+                new Ghost(j, i, Sprite.ghost_right1);
+                break;
+            case '6':
+                new Boss(j, i, Sprite.boss_left1);
+                break;
         }
     }
 }

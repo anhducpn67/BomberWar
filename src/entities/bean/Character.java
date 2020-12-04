@@ -11,10 +11,10 @@ public abstract class Character extends AnimateEntity implements Movable {
     protected int defaultVelocity = 1;
     protected int velocityX = 0;
     protected int velocityY = 0;
-    protected boolean isStand;
     protected int speed = 1;
+    public int direction;
+    public boolean isStand;
     public boolean isCollision;
-    public int direction = 2;
     public boolean isWallPass = false;
     public boolean isBombPass = false;
     public boolean isFlamePass = false;
@@ -46,6 +46,8 @@ public abstract class Character extends AnimateEntity implements Movable {
     public void move() {
         pixelX += velocityX;
         pixelY += velocityY;
+        tileX = pixelX / Sprite.SCALED_SIZE;
+        tileY = pixelY / Sprite.SCALED_SIZE;
     }
 
     public void checkCollision() {

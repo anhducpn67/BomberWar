@@ -1,7 +1,7 @@
 package entities.bean;
 
 import input.Sound;
-import map.GameMap;
+import map.Map;
 import sprite.Sprite;
 import trace.TraceStrategy;
 
@@ -18,7 +18,7 @@ abstract public class Enemy extends Character {
 
     @Override
     public void getDirection() {
-        direction =  traceStrategy.trace(this, GameMap.player_1);
+        direction =  traceStrategy.trace(this, Map.player_1);
         if (direction == 0) {
             this.setVelocity(-defaultVelocity,0);
             currentAnimate = animatedSprites.get("LEFT");
@@ -52,7 +52,7 @@ abstract public class Enemy extends Character {
             Sound.stageCleared.setCycleCount(999);
             Sound.stageCleared.play();
         }
-        GameMap.score += score;
+        Map.score += score;
         Sound.playSound("EnemyDie");
     }
 

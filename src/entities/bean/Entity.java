@@ -4,11 +4,11 @@ import sprite.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import map.GameMap;
+import map.Map;
 
 public abstract class Entity {
 
-    public GameMap gameMap = GameMap.getGameMap();
+    public Map gameMap = Map.getGameMap();
 
     public int pixelX, pixelY;
     public int tileX, tileY;

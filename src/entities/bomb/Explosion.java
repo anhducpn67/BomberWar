@@ -5,9 +5,12 @@ import entities.bean.Character;
 import entities.bean.Entity;
 import entities.bean.Item;
 import entities.still.Brick;
+import javafx.scene.canvas.GraphicsContext;
 import sprite.Sprite;
 
 public class Explosion extends AnimateEntity {
+
+    boolean isDestroyBrick = false;
 
     public Explosion(int x, int y, Sprite sprite, String animate) {
         super(x, y, sprite);
@@ -44,7 +47,8 @@ public class Explosion extends AnimateEntity {
     private void isCollision() {
         Entity entity = gameMap.tiles[this.tileX][this.tileY];
         if (entity instanceof Brick) {
-            ((Brick) entity).delete();
+            isDestroyBrick = true;
+            ((Brick) entity).boom();
         }
         for (Character character: gameMap.characters) {
             if (this.isCollision(character) && !character.isFlamePass) {
@@ -60,6 +64,13 @@ public class Explosion extends AnimateEntity {
             if (this.isCollision(bomb) && !bomb.isExploded) {
                 bomb.ticTac = 1;
             }
+        }
+    }
+
+    @Override
+    public void render(GraphicsContext gc) {
+        if (!isDestroyBrick) {
+            super.render(gc);
         }
     }
 }

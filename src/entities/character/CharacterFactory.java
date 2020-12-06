@@ -1,7 +1,7 @@
 package entities.character;
 
 import entities.character.enemy.*;
-import map.GameMap;
+import map.Map;
 import sprite.Sprite;
 
 public class CharacterFactory {
@@ -12,14 +12,14 @@ public class CharacterFactory {
     public static void getCharacter(char ch, int i, int j) {
         switch (ch) {
             case 'p':
-                if (GameMap.player_1 == null) {
-                    GameMap.player_1 = new Bomber(j, i, Sprite.player_right);
+                if (Map.player_1 == null) {
+                    Map.player_1 = new Bomber(j, i, Sprite.player_right);
                 } else {
-                    GameMap.player_1.tileX = j;
-                    GameMap.player_1.tileY = i;
-                    GameMap.player_1.pixelX = j * Sprite.SCALED_SIZE;
-                    GameMap.player_1.pixelY = i * Sprite.SCALED_SIZE;
-                    GameMap.getGameMap().characters.add(GameMap.player_1);
+                    Map.player_1.tileX = j;
+                    Map.player_1.tileY = i;
+                    Map.player_1.pixelX = j * Sprite.SCALED_SIZE;
+                    Map.player_1.pixelY = i * Sprite.SCALED_SIZE;
+                    Map.getGameMap().characters.add(Map.player_1);
                 }
                 break;
             case '1':

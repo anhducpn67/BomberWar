@@ -7,6 +7,8 @@ import entities.bean.Item;
 import entities.bomb.Bomb;
 import entities.item.Portal;
 import input.Sound;
+import main.BombermanGame;
+import map.Message;
 import sprite.Sprite;
 import input.KeyInput;
 import javafx.geometry.Rectangle2D;
@@ -108,11 +110,13 @@ public class Bomber extends Character {
     @Override
     public void delete() {
         Sound.playSound("Die");
-        life -= 1;  isDestroyed = false;
+        life -= 1;          isDestroyed = false;
         this.tileX = 1;     this.tileY = 1;
         this.pixelX = 32;   this.pixelY = 32;
+        currentAnimate = animatedSprites.get("RIGHT");
+        updateAnimation();
         if (life == 0) {
-            System.exit(0);
+            Message.showDefeatMessage();
         }
     }
 }

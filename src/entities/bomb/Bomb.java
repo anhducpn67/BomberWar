@@ -5,7 +5,7 @@ import entities.bean.Entity;
 import entities.still.Brick;
 import entities.still.Wall;
 import input.Sound;
-import map.GameMap;
+import map.Map;
 import sprite.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -28,7 +28,7 @@ public class Bomb extends AnimateEntity {
         int[] dx = new int[]{0, 0, 1, -1};
         int[] dy = new int[]{1, -1, 0, 0};
         for (int direction = 0; direction < 4; direction++) {
-            for (int i = 0; i < GameMap.player_1.lengthBomb; i++) {
+            for (int i = 0; i < Map.player_1.lengthBomb; i++) {
                 int tileX = this.tileX + (i + 1) * dx[direction];
                 int tileY = this.tileY + (i + 1) * dy[direction];
                 if (tileX < 0 || tileX >= gameMap.WIDTH || tileY < 0 || tileY >= gameMap.HEIGHT) {
@@ -43,7 +43,7 @@ public class Bomb extends AnimateEntity {
                 } else {
                     explosion[direction][i] = new Explosion(tileX, tileY, Sprite.explosion_horizontal, "HORIZONTAL");
                 }
-                if (i == GameMap.player_1.lengthBomb - 1) {
+                if (i == Map.player_1.lengthBomb - 1) {
                     switch (direction) {
                         case 0:
                             explosion[direction][i] = new Explosion(tileX, tileY, Sprite.explosion_vertical_down_last, "DOWN_LAST");
@@ -86,7 +86,7 @@ public class Bomb extends AnimateEntity {
         gc.drawImage(img, pixelX, pixelY);
         if (isDestroyed) {
             for (int direction = 0; direction < 4; direction++) {
-                for (int i = 0; i < GameMap.player_1.lengthBomb; i++) {
+                for (int i = 0; i < Map.player_1.lengthBomb; i++) {
                     if (explosion[direction][i] != null) {
                         explosion[direction][i].update();
                         explosion[direction][i].render(gc);

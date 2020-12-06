@@ -32,10 +32,17 @@ Character:
 p - Bomber
 1 - Balloon
 2 - Oneal
+3 - Minvo
+4 - Kondoria
+5 - Ghost
+6 - Boss
 
 Items:
 b - Bomb Item
 f - Flame Item
 s - Speed Item
+w - Wall Pass Item
+l - Bomb Pass Item
+k - Flame Pass Item
 
 Kí tự khác các kí tự trên - Grass

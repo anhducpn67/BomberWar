@@ -6,20 +6,20 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import map.Board;
-import map.GameMap;
+import map.Map;
+import map.Message;
 import sprite.Sprite;
 
 public class BombermanGame extends Application {
 
     public static int time;
-    public static GameMap gameMap = GameMap.getGameMap();
+    public static boolean isPause = false;
+    public static Map gameMap = Map.getGameMap();
 
-    public static GraphicsContext gc;
-    public static Canvas canvas;
+    public static Canvas canvas = new Canvas();
+    public static GraphicsContext gc = canvas.getGraphicsContext2D();
     public static Stage stage;
 
     public static void main(String[] args) {
@@ -27,29 +27,32 @@ public class BombermanGame extends Application {
     }
 
     @Override
-    public void start(Stage stage) {
-        BombermanGame.stage = stage;
-        gameMap.nextLevel();
+    public void start(Stage primaryStage) {
+        BombermanGame.stage = primaryStage;
+        KeyInput.initialization();
+        gameMap.nextStage();
         final long startNanoTime = System.nanoTime();
         new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
                 time = (int) ((currentNanoTime - startNanoTime) / 60000000) + 1;
-                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                gameMap.updateMap();
-                Board.updateBoard();
-                gameMap.renderMap(gc);
+                if (!isPause) {
+                    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                    gameMap.updateMap();
+                    Message.updateBoard();
+                    gameMap.renderMap(gc);
+                }
             }
         }.start();
     }
 
     public static void createStage() {
+        isPause = false;
         canvas = new Canvas(Sprite.SCALED_SIZE * gameMap.WIDTH, Sprite.SCALED_SIZE * gameMap.HEIGHT);
         gc = canvas.getGraphicsContext2D();
-        HBox hBox = new HBox(Board.stage, Board.left, Board.score, Board.time);
-        hBox.setSpacing(100.0);
-        VBox root = new VBox(hBox, canvas);
+        VBox root = new VBox(Message.getBoard(), canvas);
         Scene scene = new Scene(root);
+        KeyInput.initialization();
         scene.setOnKeyPressed(
                 e -> {
                     String code = e.getCode().toString();

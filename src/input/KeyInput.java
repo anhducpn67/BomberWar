@@ -4,7 +4,8 @@ import java.util.HashMap;
 
 public class KeyInput {
     public static HashMap<String, Boolean> keyInput = new HashMap<>();
-    static {
+
+    public static void initialization() {
         keyInput.put("LEFT", false);
         keyInput.put("RIGHT", false);
         keyInput.put("UP", false);

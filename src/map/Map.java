@@ -9,17 +9,22 @@ import entities.character.CharacterFactory;
 import entities.item.ItemFactory;
 import entities.still.StillFactory;
 import input.Sound;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.util.Duration;
 import main.BombermanGame;
+import sprite.Sprite;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Timer;
 
-public class GameMap {
+public class Map {
 
-    private static GameMap gameMap;
+    private static Map gameMap;
 
     public int WIDTH, HEIGHT;
 
@@ -31,12 +36,12 @@ public class GameMap {
     public static int stage = 0;
     public static int score = 0;
 
-    private GameMap() {
+    private Map() {
     }
 
-    public static GameMap getGameMap() {
+    public static Map getGameMap() {
         if (gameMap == null) {
-            gameMap = new GameMap();
+            gameMap = new Map();
         }
         return gameMap;
     }
@@ -64,6 +69,11 @@ public class GameMap {
     }
 
     public void updateMap() {
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                tiles[j][i].update();
+            }
+        }
         for (Bomb bomb: bombs) {
             bomb.update();
         }
@@ -89,24 +99,25 @@ public class GameMap {
         }
     }
 
-    public void nextLevel() {
-        GameMap.stage += 1;
+    public void nextStage() {
+        Map.stage += 1;
         if (Sound.stageCleared.isPlaying()) {
             Sound.stageCleared.stop();
         }
-        if (GameMap.stage % 2 == 1) {
+        if (Map.stage % 2 == 1) {
             Sound.backgroundSound.stop();
             Sound.backgroundSound = Sound.playSound("AreaBoss");
         } else {
             Sound.backgroundSound.stop();
             Sound.backgroundSound = Sound.playSound("Area2");
         }
-        String levelPath = String.format("./res/levels/Level%d.txt", GameMap.stage);
+        String stagePath = String.format("./res/levels/Level%d.txt", Map.stage);
         try {
-            gameMap.createMap(levelPath);
+            createMap(stagePath);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        BombermanGame.createStage();
+        Message.showNextStageMessenger();
+//        BombermanGame.createStage();
     }
 }

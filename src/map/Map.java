@@ -9,18 +9,12 @@ import entities.character.CharacterFactory;
 import entities.item.ItemFactory;
 import entities.still.StillFactory;
 import input.Sound;
-import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.util.Duration;
-import main.BombermanGame;
-import sprite.Sprite;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Timer;
 
 public class Map {
 
@@ -31,7 +25,7 @@ public class Map {
     public Entity[][] tiles;
     public ArrayList<Character> characters;
     public ArrayList<Item> items;
-    public static Bomber player_1;
+    public static Bomber player_1, player_2;
     public ArrayList<Bomb> bombs;
     public static int stage = 0;
     public static int score = 0;
@@ -51,6 +45,12 @@ public class Map {
         characters = new ArrayList<>();
         bombs = new ArrayList<>();
         items = new ArrayList<>();
+        if (player_1 != null) {
+            player_1.keyInput.initialization();
+        }
+        if (player_2 != null) {
+            player_2.keyInput.initialization();
+        }
     }
 
     public void createMap(String mapPath) throws FileNotFoundException {
@@ -106,7 +106,7 @@ public class Map {
         }
         if (Map.stage % 2 == 1) {
             Sound.backgroundSound.stop();
-            Sound.backgroundSound = Sound.playSound("AreaBoss");
+            Sound.backgroundSound = Sound.playSound("Area1");
         } else {
             Sound.backgroundSound.stop();
             Sound.backgroundSound = Sound.playSound("Area2");
@@ -118,6 +118,5 @@ public class Map {
             e.printStackTrace();
         }
         Message.showNextStageMessenger();
-//        BombermanGame.createStage();
     }
 }

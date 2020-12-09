@@ -14,6 +14,7 @@ import sprite.Sprite;
 
 public class Bomber extends Character {
 
+    public KeyInput keyInput;
 
     public int maxBombs = 1;
     public int lengthBomb = 1;
@@ -38,6 +39,10 @@ public class Bomber extends Character {
 
     @Override
     public void checkCollision() {
+        if (direction == -1) {
+            isStand = true;
+            return;
+        }
         for (Character character: gameMap.characters) {
             if (this.isCollision2(character) && character instanceof Enemy) {
                 destroy();
@@ -72,29 +77,25 @@ public class Bomber extends Character {
     @Override
     public void getDirection() {
         this.setVelocity(0, 0);
-        if (KeyInput.keyInput.get("LEFT")) {
+        direction = keyInput.handleKeyInput();
+        if (direction == 1) {
             this.setVelocity(-defaultVelocity,0);
             currentAnimate = animatedSprites.get("LEFT");
-            direction = 1;
         }
-        if (KeyInput.keyInput.get("RIGHT")) {
+        if (direction == 2) {
             this.setVelocity(defaultVelocity, 0);
             currentAnimate = animatedSprites.get("RIGHT");
-            direction = 2;
         }
-        if (KeyInput.keyInput.get("UP")) {
+        if (direction == 3) {
             this.setVelocity(0, -defaultVelocity);
             currentAnimate = animatedSprites.get("UP");
-            direction = 3;
         }
-        if (KeyInput.keyInput.get("DOWN")) {
+        if (direction == 0) {
             this.setVelocity(0, defaultVelocity);
             currentAnimate = animatedSprites.get("DOWN");
-            direction = 0;
         }
-        if (KeyInput.keyInput.get("SPACE")) {
+        if (direction == 4) {
             placeBomb();
-            KeyInput.keyInput.put("SPACE", false);
         }
     }
 

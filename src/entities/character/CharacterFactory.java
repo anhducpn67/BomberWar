@@ -1,6 +1,8 @@
 package entities.character;
 
 import entities.character.enemy.*;
+import input.PlayerOne;
+import input.PlayerTwo;
 import map.Map;
 import sprite.Sprite;
 
@@ -14,12 +16,27 @@ public class CharacterFactory {
             case 'p':
                 if (Map.player_1 == null) {
                     Map.player_1 = new Bomber(j, i, Sprite.player_right);
+                    Map.player_1.keyInput = new PlayerOne();
+                    Map.player_1.keyInput.initialization();
                 } else {
                     Map.player_1.tileX = j;
                     Map.player_1.tileY = i;
                     Map.player_1.pixelX = j * Sprite.SCALED_SIZE;
                     Map.player_1.pixelY = i * Sprite.SCALED_SIZE;
                     Map.getGameMap().characters.add(Map.player_1);
+                }
+                break;
+            case 'o':
+                if (Map.player_2 == null) {
+                    Map.player_2 = new Bomber(j, i, Sprite.player_right);
+                    Map.player_2.keyInput = new PlayerTwo();
+                    Map.player_2.keyInput.initialization();
+                } else {
+                    Map.player_2.tileX = j;
+                    Map.player_2.tileY = i;
+                    Map.player_2.pixelX = j * Sprite.SCALED_SIZE;
+                    Map.player_2.pixelY = i * Sprite.SCALED_SIZE;
+                    Map.getGameMap().characters.add(Map.player_2);
                 }
                 break;
             case '1':

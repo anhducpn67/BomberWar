@@ -29,7 +29,6 @@ public class BombermanGame extends Application {
     @Override
     public void start(Stage primaryStage) {
         BombermanGame.stage = primaryStage;
-        KeyInput.initialization();
         gameMap.nextStage();
         final long startNanoTime = System.nanoTime();
         new AnimationTimer() {
@@ -52,7 +51,6 @@ public class BombermanGame extends Application {
         gc = canvas.getGraphicsContext2D();
         VBox root = new VBox(Message.getBoard(), canvas);
         Scene scene = new Scene(root);
-        KeyInput.initialization();
         scene.setOnKeyPressed(
                 e -> {
                     String code = e.getCode().toString();

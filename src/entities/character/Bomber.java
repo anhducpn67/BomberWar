@@ -6,14 +6,14 @@ import entities.bean.Entity;
 import entities.bean.Item;
 import entities.bomb.Bomb;
 import entities.item.Portal;
+import input.KeyInput;
 import input.Sound;
-import main.BombermanGame;
+import javafx.geometry.Rectangle2D;
 import map.Message;
 import sprite.Sprite;
-import input.KeyInput;
-import javafx.geometry.Rectangle2D;
 
 public class Bomber extends Character {
+
 
     public int maxBombs = 1;
     public int lengthBomb = 1;
@@ -40,7 +40,7 @@ public class Bomber extends Character {
     public void checkCollision() {
         for (Character character: gameMap.characters) {
             if (this.isCollision2(character) && character instanceof Enemy) {
-                boom();
+                destroy();
             }
         }
         for (Item item: gameMap.items) {
@@ -117,6 +117,8 @@ public class Bomber extends Character {
         updateAnimation();
         if (life == 0) {
             Message.showDefeatMessage();
+            Sound.backgroundSound.stop();
+            Sound.playSound("GameOver");
         }
     }
 }

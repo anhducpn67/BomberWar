@@ -7,7 +7,6 @@ import entities.character.Bomber;
 import sprite.Sprite;
 
 public class Portal extends Item {
-
     public Portal(int x, int y, Sprite sprite) {
         super(x, y, sprite);
     }

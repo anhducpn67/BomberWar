@@ -21,7 +21,7 @@ public abstract class Item extends Entity {
     @Override
     public void render(GraphicsContext gc) {
         if (!isHidden) {
-            super.render(gc);
+            gc.drawImage(img, pixelX, pixelY);
         }
     }
 

@@ -12,7 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 public class Bomb extends AnimateEntity {
 
     private Explosion[][] explosion;
-    public int ticTac = 200;
+    public int timeBeforeExplode = 200;
     public boolean isExploded = false;
 
     public Bomb(int x, int y, Sprite sprite) {
@@ -70,13 +70,13 @@ public class Bomb extends AnimateEntity {
     @Override
     public void update() {
         updateAnimation();
-        ticTac -= 1;
-        if (ticTac == 0) {
+        timeBeforeExplode -= 1;
+        if (timeBeforeExplode == 0) {
             isExploded = true;
-            boom();
+            destroy();
             buildExplosion();
         }
-        if (ticTac == -10) {
+        if (timeBeforeExplode == -10) {
             delete();
         }
     }

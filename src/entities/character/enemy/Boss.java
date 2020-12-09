@@ -38,6 +38,14 @@ public class Boss extends Enemy {
     private void fire() {
         new Fire(this.tileX, this.tileY, Sprite.fire_down, this.direction);
     }
+
+    @Override
+    public void delete() {
+        life -= 1;
+        if (life == 0) {
+            super.delete();
+        }
+    }
 }
 
 class Fire extends Enemy {

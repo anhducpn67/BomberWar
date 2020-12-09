@@ -57,7 +57,7 @@ public abstract class Character extends AnimateEntity implements Movable {
         for (Bomb bomb: gameMap.bombs) {
             if (this.isCollision(bomb)) {
                 if (bomb.isDestroyed && !this.isFlamePass) {
-                    this.boom();
+                    this.destroy();
                 } else {
                     if (isBombPass) {
                         continue;
@@ -92,7 +92,7 @@ public abstract class Character extends AnimateEntity implements Movable {
     @Override
     public void update() {
         if (isDestroyed) {
-            super.update();
+            updateDestroyAnimation();
             return;
         }
         for (int i = 1; i <= speed; i++) {

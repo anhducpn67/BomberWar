@@ -3,7 +3,6 @@ package entities.still;
 import sprite.Sprite;
 
 public class StillFactory {
-
     private StillFactory() {
     }
 

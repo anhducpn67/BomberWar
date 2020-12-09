@@ -1,17 +1,11 @@
 package map;
 
-import input.KeyInput;
-import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import main.BombermanGame;
 import sprite.Sprite;
 
@@ -31,6 +25,14 @@ public class Message {
         left.setFont(font);
     }
 
+    public static Text createText(String string, int size) {
+        Font font = Font.loadFont("file:res/fonts/font2.TTF", size);
+        Text text = new Text(string);
+        text.setFont(font);
+        text.setFill(Color.WHITE);
+        return text;
+    }
+
     public static void updateBoard() {
         Message.score.setText("SCORE " + Map.score);
         Message.stage.setText("STAGE " + Map.stage);
@@ -48,11 +50,7 @@ public class Message {
 
     public static void showNextStageMessenger() {
         BombermanGame.isPause = true;
-        Font font = Font.loadFont("file:res/fonts/font2.TTF", 30);
-        Text text = new Text();
-        text.setFont(font);
-        text.setText("Stage " + Map.stage);
-        text.setFill(Color.WHITE);
+        Text text = createText("Stage " + Map.stage, 30);
         StackPane root = new StackPane(text);
         root.setPrefSize(Sprite.SCALED_SIZE * gameMap.WIDTH, Sprite.SCALED_SIZE * gameMap.HEIGHT);
         root.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0),null,null)));
@@ -67,18 +65,14 @@ public class Message {
 
     public static void showDefeatMessage() {
         BombermanGame.isPause = true;
-        Font font = Font.loadFont("file:res/fonts/font2.TTF", 30);
-        Text text = new Text();
-        text.setFont(font);
-        text.setText("DEFEAT!");
-        text.setFill(Color.WHITE);
-        StackPane root = new StackPane(text);
+        Text text1 = createText("DEFEAT!", 30);
+        Text text2 = createText("Your score is " + Map.score, 20);
+        VBox root = new VBox(text1, text2);
+        root.setAlignment(Pos.CENTER);  root.setSpacing(10);
         root.setPrefSize(Sprite.SCALED_SIZE * gameMap.WIDTH, Sprite.SCALED_SIZE * gameMap.HEIGHT);
         root.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0),null,null)));
         Scene scene = new Scene(root);
-        scene.setOnKeyPressed(e -> {
-            System.exit(0);
-        });
+        scene.setOnKeyPressed(e -> System.exit(0));
         BombermanGame.stage.setScene(scene);
         BombermanGame.stage.show();
     }

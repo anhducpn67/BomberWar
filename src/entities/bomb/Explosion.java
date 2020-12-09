@@ -48,11 +48,11 @@ public class Explosion extends AnimateEntity {
         Entity entity = gameMap.tiles[this.tileX][this.tileY];
         if (entity instanceof Brick) {
             isDestroyBrick = true;
-            ((Brick) entity).boom();
+            ((Brick) entity).destroy();
         }
         for (Character character: gameMap.characters) {
             if (this.isCollision(character) && !character.isFlamePass) {
-                character.boom();
+                character.destroy();
             }
         }
         for (Item item: gameMap.items) {
@@ -62,7 +62,7 @@ public class Explosion extends AnimateEntity {
         }
         for (Bomb bomb: gameMap.bombs) {
             if (this.isCollision(bomb) && !bomb.isExploded) {
-                bomb.ticTac = 1;
+                bomb.timeBeforeExplode = 1;
             }
         }
     }

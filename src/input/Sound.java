@@ -20,7 +20,7 @@ public class Sound extends Application {
     }
 
     public static AudioClip playSound(String action) {
-        String path = "res/sound/" + action + ".wav";
+        String path = "resources/sound/" + action + ".wav";
         Media media = new Media(new File(path).toURI().toString());
         AudioClip audioClip = new AudioClip(media.getSource());
         audioClip.play();

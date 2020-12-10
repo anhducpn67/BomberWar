@@ -12,10 +12,12 @@ import map.Map;
 import map.Message;
 import sprite.Sprite;
 
+import java.io.IOException;
+
 public class BombermanGame extends Application {
 
     public static int time;
-    public static boolean isPause = false;
+    public static boolean isPause = true;
     public static Map gameMap = Map.getGameMap();
 
     public static Canvas canvas = new Canvas();
@@ -27,9 +29,11 @@ public class BombermanGame extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         BombermanGame.stage = primaryStage;
-        gameMap.nextStage();
+        BombermanGame.stage.setTitle("Bomberman");
+        Message.showMenu();
+
         final long startNanoTime = System.nanoTime();
         new AnimationTimer() {
             @Override

@@ -1,7 +1,6 @@
 package entities.bean;
 
 import entities.bomb.Bomb;
-import entities.character.Bomber;
 import entities.features.Movable;
 import entities.still.Brick;
 import sprite.Sprite;
@@ -64,11 +63,11 @@ public abstract class Character extends AnimateEntity implements Movable {
                     }
                     isCollision = true;
                 }
-                if (this instanceof Bomber && !bomb.canBlock) {
+                if (bomb.getOwner() == this && !bomb.canBlock) {
                     isCollision = false;
                 }
             } else {
-                if (this instanceof Bomber) {
+                if (bomb.getOwner() == this) {
                     bomb.canBlock = true;
                 }
             }

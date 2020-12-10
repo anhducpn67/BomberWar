@@ -70,6 +70,10 @@ public class Bomb extends AnimateEntity {
         Sound.playSound("Explosion");
     }
 
+    public Bomber getOwner() {
+        return owner;
+    }
+
     @Override
     public void update() {
         updateAnimation();

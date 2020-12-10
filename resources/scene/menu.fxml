@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="416.0" prefWidth="992.0" spacing="20.0"
+      style="-fx-background-image: url('file:resources/background.jpg');" xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="map.MenuController">
+   <padding>
+      <Insets bottom="30.0"/>
+   </padding>
+   <Text fill="#00deff" layoutX="478.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0"
+         style="-fx-font-family: &quot;04b&quot;;" text="BOMBERMAN">
+      <font>
+         <Font size="40.0"/>
+      </font>
+   </Text>
+   <Text strokeType="OUTSIDE" strokeWidth="0.0">
+      <font>
+         <Font size="30.0"/>
+      </font>
+   </Text>
+   <Text fill="#07ff00" onMouseClicked="#campaignMode" strokeType="OUTSIDE" strokeWidth="0.0"
+         style="-fx-font-family: &quot;Fipps&quot;;" text="Campaign">
+      <font>
+         <Font size="25.0"/>
+      </font>
+   </Text>
+   <Text fill="#07ff00" onMouseClicked="#twoPlayerMode" strokeType="OUTSIDE" strokeWidth="0.0"
+         style="-fx-font-family: &quot;Fipps&quot;;" text="Two players">
+      <font>
+         <Font size="25.0"/>
+      </font>
+   </Text>
+   <Text fill="#07ff00" onMouseClicked="#exit" strokeType="OUTSIDE" strokeWidth="0.0"
+         style="-fx-font-family: &quot;Fipps&quot;;" text="Exit">
+      <font>
+         <Font size="25.0"/>
+      </font>
+   </Text>
+</VBox>

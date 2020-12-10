@@ -21,6 +21,7 @@ public class Map {
     private static Map gameMap;
 
     public int WIDTH, HEIGHT;
+    public String mode;
 
     public Entity[][] tiles;
     public ArrayList<Character> characters;
@@ -106,7 +107,7 @@ public class Map {
         }
         Sound.backgroundSound.stop();
         Sound.backgroundSound = Sound.playSound(String.format("Area%s", Map.stage % 2));
-        String stagePath = String.format("./res/levels/Level%d.txt", Map.stage);
+        String stagePath = "./resources/levels/" + mode + String.format("/Level%d.txt", Map.stage);
         try {
             createMap(stagePath);
         } catch (FileNotFoundException e) {

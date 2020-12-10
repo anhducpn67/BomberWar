@@ -1,5 +1,6 @@
 package map;
 
+import input.Sound;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -8,6 +9,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import main.BombermanGame;
 import sprite.Sprite;
+
+import java.io.IOException;
 
 public class Message {
 
@@ -18,7 +21,7 @@ public class Message {
     public static Text time = new Text();
     public static Text left = new Text();
     static {
-        Font font = Font.loadFont("file:res/fonts/font3.otf", 20);
+        Font font = Font.loadFont("file:resources/fonts/font3.otf", 20);
         stage.setFont(font);
         score.setFont(font);
         time.setFont(font);
@@ -26,7 +29,7 @@ public class Message {
     }
 
     public static Text createText(String string, int size) {
-        Font font = Font.loadFont("file:res/fonts/font2.TTF", size);
+        Font font = Font.loadFont("file:resources/fonts/font2.TTF", size);
         Text text = new Text(string);
         text.setFont(font);
         text.setFill(Color.WHITE);
@@ -74,6 +77,12 @@ public class Message {
         Scene scene = new Scene(root);
         scene.setOnKeyPressed(e -> System.exit(0));
         BombermanGame.stage.setScene(scene);
+        BombermanGame.stage.show();
+    }
+
+    public static void showMenu() throws IOException {
+        Sound.backgroundSound = Sound.playSound("Title");
+        BombermanGame.stage.setScene(MenuController.getScene());
         BombermanGame.stage.show();
     }
 }

@@ -1,5 +1,7 @@
 package input;
 
+import entities.character.Bomber;
+
 public class PlayerOne implements KeyInput{
 
     public void initialization() {
@@ -11,7 +13,11 @@ public class PlayerOne implements KeyInput{
     }
 
     @Override
-    public int handleKeyInput() {
+    public int handleKeyInput(Bomber bomber) {
+        if (keyInput.get("SPACE")) {
+            keyInput.put("SPACE", false);
+            bomber.placeBomb();
+        }
         if (keyInput.get("A")) {
             return 1;
         }
@@ -23,10 +29,6 @@ public class PlayerOne implements KeyInput{
         }
         if (keyInput.get("S")) {
             return 0;
-        }
-        if (keyInput.get("SPACE")) {
-            keyInput.put("SPACE", false);
-            return 4;
         }
         return -1;
     }

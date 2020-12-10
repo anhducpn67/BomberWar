@@ -22,7 +22,7 @@ public class Boss extends Enemy {
         traceStrategy = new DistanceTrace();
         score = 10000;
         isWallPass = true;
-        life = 3;
+        life = 1;
     }
 
     @Override
@@ -38,14 +38,6 @@ public class Boss extends Enemy {
     private void fire() {
         new Fire(this.tileX, this.tileY, Sprite.fire_down, this.direction);
     }
-
-    @Override
-    public void delete() {
-        life -= 1;
-        if (life == 0) {
-            super.delete();
-        }
-    }
 }
 
 class Fire extends Enemy {
@@ -56,11 +48,13 @@ class Fire extends Enemy {
         animatedSprites.put("UP", new Sprite[]{Sprite.fire_up, Sprite.fire_up, Sprite.fire_up});
         animatedSprites.put("RIGHT", new Sprite[]{Sprite.fire_right, Sprite.fire_right, Sprite.fire_right});
         animatedSprites.put("DOWN", new Sprite[]{Sprite.fire_down, Sprite.fire_down, Sprite.fire_down});
+        animatedSprites.put("DESTROY", new Sprite[]{Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3});
     }
 
     @Override
     public void setSpeciality() {
         traceStrategy = new RandomTrace();
+        isBombPass = true;
         speed = 2;
     }
 
@@ -70,10 +64,17 @@ class Fire extends Enemy {
     }
 
     @Override
-    public void checkCollision() {
-        super.checkCollision();
-        if (isCollision) {
-            delete();
+    public void update() {
+        for (int i = 1; i <= speed; i++) {
+            getDirection();
+            checkCollision();
+            if (!isStand) {
+                updateAnimation();
+            }
+            if (isCollision || isStand) {
+                delete();
+            }
+            move();
         }
     }
 }

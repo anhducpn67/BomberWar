@@ -78,29 +78,30 @@ public class Bomber extends Character {
     @Override
     public void getDirection() {
         this.setVelocity(0, 0);
-        direction = keyInput.handleKeyInput();
-        if (direction == 1) {
+        int newDirection = keyInput.handleKeyInput(this);
+        if (newDirection == 1) {
             this.setVelocity(-defaultVelocity,0);
             currentAnimate = animatedSprites.get("LEFT");
+            direction = newDirection;
         }
-        if (direction == 2) {
+        if (newDirection == 2) {
             this.setVelocity(defaultVelocity, 0);
             currentAnimate = animatedSprites.get("RIGHT");
+            direction = newDirection;
         }
-        if (direction == 3) {
+        if (newDirection == 3) {
             this.setVelocity(0, -defaultVelocity);
             currentAnimate = animatedSprites.get("UP");
+            direction = newDirection;
         }
-        if (direction == 0) {
+        if (newDirection == 0) {
             this.setVelocity(0, defaultVelocity);
             currentAnimate = animatedSprites.get("DOWN");
-        }
-        if (direction == 4) {
-            placeBomb();
+            direction = newDirection;
         }
     }
 
-    private void placeBomb() {
+    public void placeBomb() {
         if (countBombs == maxBombs) {
             return;
         }

@@ -1,5 +1,7 @@
 package input;
 
+import entities.character.Bomber;
+
 public class PlayerTwo implements KeyInput {
 
     public void initialization() {
@@ -11,7 +13,11 @@ public class PlayerTwo implements KeyInput {
     }
 
     @Override
-    public int handleKeyInput() {
+    public int handleKeyInput(Bomber bomber) {
+        if (keyInput.get("ENTER")) {
+            keyInput.put("ENTER", false);
+            bomber.placeBomb();
+        }
         if (keyInput.get("LEFT")) {
             return 1;
         }
@@ -23,10 +29,6 @@ public class PlayerTwo implements KeyInput {
         }
         if (keyInput.get("DOWN")) {
             return 0;
-        }
-        if (keyInput.get("ENTER")) {
-            keyInput.put("ENTER", false);
-            return 4;
         }
         return -1;
     }

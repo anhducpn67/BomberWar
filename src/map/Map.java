@@ -104,13 +104,8 @@ public class Map {
         if (Sound.stageCleared.isPlaying()) {
             Sound.stageCleared.stop();
         }
-        if (Map.stage % 2 == 1) {
-            Sound.backgroundSound.stop();
-            Sound.backgroundSound = Sound.playSound("Area1");
-        } else {
-            Sound.backgroundSound.stop();
-            Sound.backgroundSound = Sound.playSound("Area2");
-        }
+        Sound.backgroundSound.stop();
+        Sound.backgroundSound = Sound.playSound(String.format("Area%s", Map.stage % 2));
         String stagePath = String.format("./res/levels/Level%d.txt", Map.stage);
         try {
             createMap(stagePath);

@@ -17,6 +17,7 @@ public class Bomber extends Character {
     public KeyInput keyInput;
 
     public int maxBombs = 1;
+    public int countBombs = 0;
     public int lengthBomb = 1;
     public int life = 3;
     private final int[] dx = new int[]{1, 0, 0, 1};
@@ -100,11 +101,12 @@ public class Bomber extends Character {
     }
 
     private void placeBomb() {
-        if (gameMap.bombs.size() == maxBombs) {
+        if (countBombs == maxBombs) {
             return;
         }
+        countBombs += 1;
         Sound.playSound("PlaceBomb");
-        Bomb bomb = new Bomb(this.tileX, this.tileY, Sprite.bomb);
+        Bomb bomb = new Bomb(this.tileX, this.tileY, Sprite.bomb, this);
         gameMap.bombs.add(bomb);
     }
 

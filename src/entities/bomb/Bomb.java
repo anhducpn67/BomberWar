@@ -2,6 +2,7 @@ package entities.bomb;
 
 import entities.bean.AnimateEntity;
 import entities.bean.Entity;
+import entities.character.Bomber;
 import entities.still.Brick;
 import entities.still.Wall;
 import input.Sound;
@@ -11,15 +12,17 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Bomb extends AnimateEntity {
 
+    private final Bomber owner;
     private Explosion[][] explosion;
     public int timeBeforeExplode = 200;
     public boolean isExploded = false;
 
-    public Bomb(int x, int y, Sprite sprite) {
+    public Bomb(int x, int y, Sprite sprite, Bomber bomber) {
         super(x, y, sprite);
         animatedSprites.put("BOMB", new Sprite[]{Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2});
         animatedSprites.put("DESTROYED", new Sprite[]{Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2});
         currentAnimate = animatedSprites.get("BOMB");
+        owner = bomber;
     }
 
     private void buildExplosion() {
@@ -100,5 +103,6 @@ public class Bomb extends AnimateEntity {
     @Override
     public void delete() {
         gameMap.bombs.remove(this);
+        owner.countBombs -= 1;
     }
 }

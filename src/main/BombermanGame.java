@@ -58,6 +58,9 @@ public class BombermanGame extends Application {
         scene.setOnKeyPressed(
                 e -> {
                     String code = e.getCode().toString();
+                    if (code.equals("P")) {
+                        Message.showPauseMessage();
+                    }
                     KeyInput.keyInput.put(code, true);
                 });
         scene.setOnKeyReleased(

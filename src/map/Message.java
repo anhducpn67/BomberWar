@@ -80,6 +80,30 @@ public class Message {
         BombermanGame.stage.show();
     }
 
+    public static void showPauseMessage() {
+        BombermanGame.isPause = !BombermanGame.isPause;
+        if (BombermanGame.isPause) {
+            Text text1 = createText("PAUSE", 30);
+            Text text2 = createText("Press P to continue", 20);
+            VBox root = new VBox(text1, text2);
+            root.setAlignment(Pos.CENTER);  root.setSpacing(10);
+            root.setPrefSize(Sprite.SCALED_SIZE * gameMap.WIDTH, Sprite.SCALED_SIZE * gameMap.HEIGHT);
+            root.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0),null,null)));
+            Scene scene = new Scene(root);
+            scene.setOnKeyPressed(
+                    e -> {
+                        String code = e.getCode().toString();
+                        if (code.equals("P")) {
+                            Message.showPauseMessage();
+                        }
+                    });
+            BombermanGame.stage.setScene(scene);
+            BombermanGame.stage.show();
+        } else {
+            BombermanGame.createStage();
+        }
+    }
+
     public static void showMenu() throws IOException {
         Sound.backgroundSound = Sound.playSound("Title");
         BombermanGame.stage.setScene(MenuController.getScene());

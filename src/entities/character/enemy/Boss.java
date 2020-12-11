@@ -2,6 +2,7 @@ package entities.character.enemy;
 
 import entities.bean.Enemy;
 import sprite.Sprite;
+import trace.BFSTrace;
 import trace.DistanceTrace;
 import trace.RandomTrace;
 
@@ -19,7 +20,7 @@ public class Boss extends Enemy {
 
     @Override
     public void setSpeciality() {
-        traceStrategy = new DistanceTrace();
+        traceStrategy = new BFSTrace();
         score = 10000;
         isWallPass = true;
         life = 1;

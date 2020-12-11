@@ -2,6 +2,7 @@ package entities.character.enemy;
 
 import entities.bean.Enemy;
 import sprite.Sprite;
+import trace.BFSTrace;
 import trace.DistanceTrace;
 
 public class Minvo extends Enemy {
@@ -17,7 +18,7 @@ public class Minvo extends Enemy {
 
     @Override
     public void setSpeciality() {
-        traceStrategy = new DistanceTrace();
+        traceStrategy = new BFSTrace();
         score = 800;
         speed = 2;
     }

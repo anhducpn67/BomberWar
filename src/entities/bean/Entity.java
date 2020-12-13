@@ -1,10 +1,10 @@
 package entities.bean;
 
-import sprite.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import map.Map;
+import sprite.Sprite;
 
 public abstract class Entity {
 
@@ -38,5 +38,5 @@ public abstract class Entity {
         gc.drawImage(img, pixelX, pixelY);
     }
 
-    public void update() {}
+    abstract public void update();
 }

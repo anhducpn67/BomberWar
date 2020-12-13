@@ -4,11 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
-import main.BombermanGame;
 
 import java.io.IOException;
 
-public class MenuController extends BombermanGame {
+public class MenuController {
 
     public Map gameMap = Map.getGameMap();
 

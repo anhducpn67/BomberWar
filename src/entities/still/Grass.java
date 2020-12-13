@@ -1,9 +1,9 @@
 package entities.still;
 
-import entities.bean.Entity;
+import entities.bean.StillEntity;
 import sprite.Sprite;
 
-public class Grass extends Entity {
+public class Grass extends StillEntity {
     public Grass(int x, int y, Sprite sprite) {
         super(x, y, sprite);
         canBlock = false;

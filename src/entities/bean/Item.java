@@ -4,10 +4,10 @@ import entities.character.Bomber;
 import entities.still.Brick;
 import entities.still.Grass;
 import input.Sound;
-import sprite.Sprite;
 import javafx.scene.canvas.GraphicsContext;
+import sprite.Sprite;
 
-public abstract class Item extends Entity {
+public abstract class Item extends StillEntity {
 
     public boolean isHidden = true;
 

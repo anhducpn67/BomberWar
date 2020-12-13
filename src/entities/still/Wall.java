@@ -1,9 +1,9 @@
 package entities.still;
 
-import entities.bean.Entity;
+import entities.bean.StillEntity;
 import sprite.Sprite;
 
-public class Wall extends Entity {
+public class Wall extends StillEntity {
     public Wall(int x, int y, Sprite sprite) {
         super(x, y, sprite);
         gameMap.tiles[x][y] = this;

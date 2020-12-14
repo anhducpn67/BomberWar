@@ -2,8 +2,7 @@ package entities.character.enemy;
 
 import entities.bean.Enemy;
 import sprite.Sprite;
-import trace.BFSTrace;
-import trace.DistanceTrace;
+import trace.BFSvsDodge;
 import trace.RandomTrace;
 
 public class Boss extends Enemy {
@@ -20,10 +19,10 @@ public class Boss extends Enemy {
 
     @Override
     public void setSpeciality() {
-        traceStrategy = new BFSTrace();
+        traceStrategy = new BFSvsDodge();
         score = 10000;
         isWallPass = true;
-        life = 1;
+        life = 3;
     }
 
     @Override
@@ -42,6 +41,7 @@ public class Boss extends Enemy {
 }
 
 class Fire extends Enemy {
+
     public Fire(int x, int y, Sprite sprite, int direction) {
         super(x, y, sprite);
         this.direction = direction;

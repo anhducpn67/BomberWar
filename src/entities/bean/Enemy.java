@@ -43,6 +43,7 @@ abstract public class Enemy extends Character {
     @Override
     public void delete() {
         if (--life != 0) {
+            isDestroyed = false;
             return;
         }
         gameMap.characters.remove(this);

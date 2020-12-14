@@ -12,7 +12,9 @@ public class Flame extends Item {
 
     @Override
     public void function(Bomber player) {
-        player.lengthBomb += 1;
+        if (player.lengthBomb < 4) {
+            player.lengthBomb += 1;
+        }
         destroy();
     }
 }

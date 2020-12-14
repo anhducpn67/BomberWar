@@ -2,7 +2,7 @@ package entities.character.enemy;
 
 import entities.bean.Enemy;
 import sprite.Sprite;
-import trace.DistanceTrace;
+import trace.HalfBFS;
 
 public class Kondoria extends Enemy {
     public Kondoria(int x, int y, Sprite sprite) {
@@ -17,7 +17,7 @@ public class Kondoria extends Enemy {
 
     @Override
     public void setSpeciality() {
-        traceStrategy = new DistanceTrace();
+        traceStrategy = new HalfBFS();
         score = 1000;
         isWallPass = true;
     }

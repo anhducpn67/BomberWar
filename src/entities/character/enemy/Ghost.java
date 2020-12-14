@@ -3,7 +3,7 @@ package entities.character.enemy;
 import entities.bean.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 import sprite.Sprite;
-import trace.RandomTrace;
+import trace.SpeedTrace;
 
 public class Ghost extends Enemy {
 
@@ -21,9 +21,8 @@ public class Ghost extends Enemy {
 
     @Override
     public void setSpeciality() {
-        speed = 2;
         score = 5000;
-        traceStrategy = new RandomTrace();
+        traceStrategy = new SpeedTrace();
         isWallPass = true;
     }
 

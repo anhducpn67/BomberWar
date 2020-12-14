@@ -6,17 +6,18 @@ import sprite.Sprite;
 
 public class DistanceTrace implements TraceStrategy {
 
-    private final int[] dx = {-1, 1, 0, 0, 0};
-    private final int[] dy = {0, 0, -1, 1, 0};
-
     @Override
     public int trace(Enemy enemy, Bomber player) {
-        if (getDistance(enemy, player) > 50000) {
+        if (getDistance(enemy, player) > distanceTarget) {
             return new RandomTrace().trace(enemy, player);
         }
-        int minDistance = 999999999;
+        int currentDistanceFromBomb = getDistanceBomb(enemy);
+        if (currentDistanceFromBomb < distanceBomb) {
+            return new RandomTrace().trace(enemy, player);
+        }
+        int minDistance = getDistance(enemy, player);
         int rightDirection = -1;
-        for (int direction = 0; direction < 5; direction++) {
+        for (int direction = 0; direction < 4; direction++) {
             enemy.pixelX = enemy.pixelX + dx[direction];
             enemy.pixelY = enemy.pixelY + dy[direction];
             enemy.setVelocity(0, 0);
@@ -35,10 +36,5 @@ public class DistanceTrace implements TraceStrategy {
             rightDirection = new RandomTrace().trace(enemy, player);
         }
         return rightDirection;
-    }
-
-    private int getDistance(Enemy enemy, Bomber player) {
-        return (enemy.pixelX - player.pixelX) * (enemy.pixelX - player.pixelX)
-                + (enemy.pixelY - player.pixelY) * (enemy.pixelY - player.pixelY);
     }
 }

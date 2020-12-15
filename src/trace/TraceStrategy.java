@@ -31,4 +31,9 @@ public interface TraceStrategy {
         }
         return distanceFromBomb;
     }
+
+
+    default boolean CheckFaceBoom(int X, int Y, int lengthBomb) {
+        return false;
+    }
 }
